@@ -11,8 +11,9 @@
 
 typedef struct  s_param
 {
-    char specifier;
-    int offset;
+    char    flag;
+    int     width;
+    int     precision;
 }               t_param;
 
 # define PLUS (+)
