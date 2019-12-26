@@ -66,8 +66,9 @@ int main(void)
     // printf("-1 |= 32 = %d\n", a);
 
     char *str = "hello, world!";
+    char *str2 = "world!!!!";
     int i = 50;
-    printf("%6.5s\n", str);
+    printf("% ds\n", i);
         
     /* printf("HASH %d\n", HASH);
     printf("ZERO %d\n", ZERO);
