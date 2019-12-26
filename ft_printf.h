@@ -15,5 +15,23 @@ typedef struct  s_param
     int offset;
 }               t_param;
 
+# define PLUS (+)
+# define MINUS (-)
+# define SPACE (' ')
+# define HASH ('#')
+# define ZERO ('0')
+
+# define SPEC_C ('c')
+# define SPEC_S ('s')
+# define SPEC_P ('p')
+# define SPEC_D ('d')
+# define SPEC_I ('i')
+# define SPEC_F ('f')
+
+
+
+
+int print_char(t_param param, va_list args);
+int print_string(t_param param, va_list args);
 
 #endif
