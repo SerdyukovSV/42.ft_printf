@@ -17,10 +17,10 @@ static int		print_printf(char specif, t_param *param, va_list args)
 	int ret;
 
 	ret = 0;
-	if (specif == SPEC_C)
+	/* if (specif == SPEC_C)
 		ret = print_char(param, args);
 	else if (specif == SPEC_S)
-		ret = print_string(param, args);
+		ret = print_string(param, args); */
 	/* else if (specif == SPEC_P)
 		ret = print_pointer(param, args);
 	else if (specif == SPEC_D || specif == SPEC_I)
@@ -34,47 +34,45 @@ static int		print_printf(char specif, t_param *param, va_list args)
 	return (ret);
 }
 
-static	int		print_stdout(char *pf, va_list args)
+static	int		print_stdout(const char *pf, va_list args)
 {
 	t_param param;
-	int		ret;
 
-	ret = PRINT_ERROR;
-	param.t_flag.plus   = NULL;
-	param.t_flag.minus  = NULL;
-	param.t_flag.space  = NULL;
-	param.t_flag.zero   = NULL;
-	param.t_flag.hash   = NULL;
+	param.t_flag.plus   = 0;
+	param.t_flag.minus  = 0;
+	param.t_flag.space  = 0;
+	param.t_flag.zero   = 0;
+	param.t_flag.hash   = 0;
 	param.width         = 0;
-	param.precision     = -1;
-	param.specifier     = NULL;
+	param.precision     = 0;
+	param.specifier     = 0;
 	if (!(*pf))
-        return (ret);
-    else if (pars_specifier(pf, &param) != PRINT_ERROR)
+        return (PRINT_ERROR);
+    else if ((pars_specifier(pf, &param)) != PRINT_ERROR)
 		return(print_printf(param.specifier, &param, args));
-	return (ret);
+	return (print_no_specifier(pf));
 }
 
 int		ft_printf(const char *format, ...)
 {
-	char	*pf;
+	// char	*pf;
 	va_list args;
 	int		ret;
 
-	pf = format;
+	// pf = format;
 	ret = 1;
 	va_start(args, format);
-	while (*pf)
+	while (*format)
 	{
-		if (pf == '%')
+		if (*format == '%')
 		{
-			pf++;
-			if ((ret = print_stdout(pf, args)) != PRINT_ERROR);
+			format++;
+			if ((ret = print_stdout(format, args)) == PRINT_ERROR)
 				break ;
 		}
 		else
-			ft_putchar(pf);
-		pf++;
+			ft_putchar(*format);
+		format++;
 	}
 	va_end(args);
 	return (ret);
