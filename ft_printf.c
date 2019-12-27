@@ -50,7 +50,7 @@ static	int		print_stdout(const char *pf, va_list args)
         return (PRINT_ERROR);
     else if ((pars_specifier(pf, &param)) != PRINT_ERROR)
 		return(print_printf(param.specifier, &param, args));
-	return (print_no_specifier(pf));
+	return (print_percent(pf));
 }
 
 int		ft_printf(const char *format, ...)

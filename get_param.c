@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 17:22:15 by gartanis          #+#    #+#             */
-/*   Updated: 2019/12/27 19:28:28 by gartanis         ###   ########.fr       */
+/*   Updated: 2019/12/27 20:34:49 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static int	get_precision(const char *precis, t_param *param)
 
 int	get_param(const char *pf, t_param *param)
 {
-    write(1, "EROR_3\n", 7);
 	int ret;
 
 	while (get_flag(*pf, param))

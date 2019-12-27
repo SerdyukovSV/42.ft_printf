@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 14:48:52 by gartanis          #+#    #+#             */
-/*   Updated: 2019/12/27 19:08:48 by gartanis         ###   ########.fr       */
+/*   Updated: 2019/12/27 20:34:51 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct			s_param
 
 # define PRINT_ERROR	(-1)
 # define SPECIFIER		"cspdiouxXf"
+# define FLAGS			"+- #0."
 # define SPEC_LEN		(ft_strlen(SPECIFIER))
 
 /*
@@ -50,6 +51,7 @@ typedef struct			s_param
 # define ZERO			('0')
 
 # define DOT			('.')
+
 # define PERCENT		('%')
 
 /*
@@ -90,7 +92,7 @@ int						get_param(const char *pf, t_param *param);
 */
 
 void					print_space(int offset);
-int						print_no_specifier(const char *pf);
+int						print_percent(const char *pf);
 int						print_char(t_param *param, va_list args);
 int						print_string(t_param *param, va_list args);
 

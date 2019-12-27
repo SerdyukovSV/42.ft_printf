@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 16:16:44 by gartanis          #+#    #+#             */
-/*   Updated: 2019/12/27 19:38:26 by gartanis         ###   ########.fr       */
+/*   Updated: 2019/12/27 20:34:47 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		print_space(int offset)
 		ft_putchar(' ');
 }
 
-int			print_no_specifier(const char *pf)
+int			print_percent(const char *pf)
 {
 	if (*pf == PERCENT)
 		ft_putchar(PERCENT);
@@ -30,26 +30,27 @@ int			print_no_specifier(const char *pf)
 
 static char	check_specifier(char *dspecif, const char *pf, t_param *param)
 {
-	write(1, "EROR_2\n", 7);
 	int i;
 	char *pdsp;
-	// char *ch;
+	char *flags;
 
 	i = 0;
 	while (pf[i])
 	{
 		pdsp = dspecif;
-		// ch = ft_strchr(pdsp, pf[i]);
-		if (ft_strchr(pdsp, pf[i]) /* pf[i] == *ch */)
+		flags = "+- #0.";
+		if (*pf == PERCENT)
+			return (0);
+		if (ft_strchr(flags, pf[i]))
+			i++;
+		else if (ft_strchr(pdsp, pf[i]))
 			return (pf[i]);
-		i++;
 	}
 	return (0);
 }
 
 int			pars_specifier(const char *pf, t_param *param)
 {
-	write(1, "\nEROR_1\n", 8);
 	int ret;
 	char *dspecif;
 
@@ -59,10 +60,10 @@ int			pars_specifier(const char *pf, t_param *param)
 	dspecif = ft_strcpy(dspecif, SPECIFIER);
 	if ((param->specifier = check_specifier(dspecif, pf, param)))
 	{
-		write(1, "1\n", 2);
 		if (!(ft_strchr(dspecif, *pf)))
 			return (1);
 		ret = get_param(pf, param);
 	}
+	free(dspecif);
 	return (ret);
 }
