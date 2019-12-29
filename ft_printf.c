@@ -17,10 +17,10 @@ static int		print_printf(char specif, t_param *param, va_list args)
 	int ret;
 
 	ret = 0;
-	/* if (specif == SPEC_C)
+	if (specif == SPEC_C)
 		ret = print_char(param, args);
 	else if (specif == SPEC_S)
-		ret = print_string(param, args); */
+		ret = print_string(param, args);
 	/* else if (specif == SPEC_P)
 		ret = print_pointer(param, args);
 	else if (specif == SPEC_D || specif == SPEC_I)
@@ -34,9 +34,11 @@ static int		print_printf(char specif, t_param *param, va_list args)
 	return (ret);
 }
 
-static	int		print_stdout(const char *pf, va_list args)
+static	int		print_stdout(const char *pf[], va_list args)
 {
+	// printf("print_stdout\n"); //////////////////////////////////////////
 	t_param param;
+	int		ret;
 
 	param.t_flag.plus   = 0;
 	param.t_flag.minus  = 0;
@@ -44,7 +46,7 @@ static	int		print_stdout(const char *pf, va_list args)
 	param.t_flag.zero   = 0;
 	param.t_flag.hash   = 0;
 	param.width         = 0;
-	param.precision     = 0;
+	param.precision     = -1;
 	param.specifier     = 0;
 	if (!(*pf))
         return (PRINT_ERROR);
@@ -55,25 +57,28 @@ static	int		print_stdout(const char *pf, va_list args)
 
 int		ft_printf(const char *format, ...)
 {
-	// char	*pf;
 	va_list args;
-	int		ret;
+	int		len_fm;
+	int		len_arg;
 
-	// pf = format;
-	ret = 1;
+	len_fm = 0;
+	len_arg = 0;
 	va_start(args, format);
 	while (*format)
 	{
 		if (*format == '%')
 		{
 			format++;
-			if ((ret = print_stdout(format, args)) == PRINT_ERROR)
+			if ((len_arg = print_stdout(&format, args)) == PRINT_ERROR)
 				break ;
 		}
 		else
+		{
 			ft_putchar(*format);
-		format++;
+			format++;
+			len_fm++;
+		}
 	}
 	va_end(args);
-	return (ret);
+	return (len_fm + len_arg);
 }

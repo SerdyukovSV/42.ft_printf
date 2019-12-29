@@ -40,9 +40,13 @@ int main(void)
     int i = 50;
     char a = 'f';
     //printf("%0 10c %d\n", a, i);
-    // printf("%2s %d %.1s %.0c\n", str, i, str2, a);
-    printf("qwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\n");
+    // printf("%2s %d %.s %c\n", str, i, str2, a);
+    // printf("qwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\n");
     // printf("qwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\n");
+    // printf("read char = %d\n", (ft_printf("%# 25s\n", str)));
+    // ft_printf("%15s\n", str);
+    // ft_printf("%20s\n", str);
+    ft_printf("%-25s %s\n", str, str2);
     
         
     /* printf("HASH %d\n", HASH);
