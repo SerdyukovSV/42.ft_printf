@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 17:22:15 by gartanis          #+#    #+#             */
-/*   Updated: 2019/12/29 18:42:49 by gartanis         ###   ########.fr       */
+/*   Updated: 2019/12/30 20:28:22 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,20 @@ static int	get_precision(const char **precis, t_param *param)
 	// printf("get_precision\n"); //////////////////////////////////////////
 	int ret;
 	const char *nbr;
+	int count;
 
 	ret = 0;
+	count = 0;
 	nbr = *precis;
 	if (*nbr++ == DOT)
-		if ((param->precision = ft_atoi(nbr)))
-			while (ft_isdigit(nbr[ret]))
-				ret += 1;
+	{
+		ret += 1;
+		while (ft_isdigit(nbr[count]))
+			count++;
+		ret += count;
+		param->t_flag.dot = DOT;
+		param->precision = ft_atoi(nbr);
+	}			
 	return (ret);
 }
 
@@ -65,5 +72,7 @@ int	get_param(const char **pf, t_param *param)
 		*pf += ret;
 	if ((ret = get_precision(pf, param)))
 		*pf += ret;
+	if (param->specifier)
+		*pf += 1;
 	return (ret);
 }

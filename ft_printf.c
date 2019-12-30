@@ -46,8 +46,9 @@ static	int		print_stdout(const char *pf[], va_list args)
 	param.t_flag.zero   = 0;
 	param.t_flag.hash   = 0;
 	param.width         = 0;
-	param.precision     = -1;
+	param.precision     = 0;
 	param.specifier     = 0;
+	param.t_flag.dot	= 0;
 	if (!(*pf))
         return (PRINT_ERROR);
     else if ((pars_specifier(pf, &param)) != PRINT_ERROR)
@@ -74,6 +75,7 @@ int		ft_printf(const char *format, ...)
 		}
 		else
 		{
+			// printf("*format = %c\n", *format); /////////////////////////////
 			ft_putchar(*format);
 			format++;
 			len_fm++;

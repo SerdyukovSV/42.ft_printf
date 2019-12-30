@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 16:16:44 by gartanis          #+#    #+#             */
-/*   Updated: 2019/12/29 18:31:41 by gartanis         ###   ########.fr       */
+/*   Updated: 2019/12/30 20:28:24 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,14 @@ static int	check_specifier(char *dspecif, const char **pf, t_param *param)
 			return (0);
 		while (ft_strchr(flags, *cp))
 			cp += 1;
-		while (ft_isdigit(*cp))
-			// printf("isdigit %c\n", (*pf[i])); //////////
+		while (ft_isdigit(*cp) || *cp == DOT)
 			cp += 1;
 		if (ft_strchr(pdsp, *cp))
 			break ;
-			// printf("6\n"); //////////////////////////////////////////
 		else
 			return (0);
 	}
 	param->specifier = *cp;
-	// printf("specif %c\n", *cp); //////////
 	return (1);
 }
 
@@ -67,13 +64,15 @@ int			pars_specifier(const char **pf, t_param *param)
 	char *dspecif;
 
 	ret = PRINT_ERROR;
-	if (!(dspecif = (char *)malloc(sizeof(char)* (ft_strlen(SPECIFIER) + 1))))
-		return (PRINT_ERROR);
-	dspecif = ft_strcpy(dspecif, SPECIFIER);
+
+	dspecif = ft_strdup(SPECIFIER);
 	if ((check_specifier(dspecif, pf, param)))
 	{
 		if (ft_strchr(dspecif, **pf))
+		{
+			*pf += 1;
 			return (1);
+		}
 		ret = get_param(pf, param);
 	}
 	free(dspecif);

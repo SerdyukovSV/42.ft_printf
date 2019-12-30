@@ -36,9 +36,11 @@ int main(void)
     // printf("-1 |= 32 = %d\n", a);
 
     char *str = "hello, world!";
-    char *str2 = "world!!!!";
+    char *str2 = "Good job!";
+    char *str3 = "Nice day";
     int i = 50;
-    char a = 'f';
+    // char a = 250;
+    char w;
     //printf("%0 10c %d\n", a, i);
     // printf("%2s %d %.s %c\n", str, i, str2, a);
     // printf("qwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\nqwer %% %%qfwef qwdqwqwreqwfvrtjkfdlmserejhbeknlmrhbejnkwlmrbgijnklmecjrijntekmmerbrefkmwwrebgikw\n");
@@ -46,9 +48,9 @@ int main(void)
     // printf("read char = %d\n", (ft_printf("%# 25s\n", str)));
     // ft_printf("%15s\n", str);
     // ft_printf("%20s\n", str);
-    ft_printf("%-25s %s\n", str, str2);
+    //ft_printf("%15.3s\n%-20.1s\n %s\n %-5c", str, str2, str3, w);
+       printf("%15.3s\n%-20.1s\n %s\n %-5c", str, str2, str3, w);
     
-        
     /* printf("HASH %d\n", HASH);
     printf("ZERO %d\n", ZERO);
     printf("MINUS %d\n", MINUS);

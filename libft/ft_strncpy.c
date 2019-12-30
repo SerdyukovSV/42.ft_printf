@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gartanis <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 17:41:52 by gartanis          #+#    #+#             */
-/*   Updated: 2019/09/23 20:22:27 by gartanis         ###   ########.fr       */
+/*   Updated: 2019/12/30 17:26:30 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char	*ft_strncpy(char *dst, const char *src, size_t len)
 		dst[i] = src[i];
 		i++;
 	}
+	dst[i] = '\0';
 	while (i < len)
 	{
 		dst[i] = '\0';
