@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 16:16:44 by gartanis          #+#    #+#             */
-/*   Updated: 2019/12/30 20:28:24 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/07 16:12:36 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,13 @@ void		print_space(int width)
 int			print_percent(const char **pf)
 {
 	if (**pf == PERCENT)
+	{
 		ft_putchar(PERCENT);
-	return ((**pf == PERCENT) ? 0 : PRINT_ERROR);
+		*pf += 1;
+	}
+	else
+		return (PRINT_ERROR);
+	return (1);
 }
 
 static int	check_specifier(char *dspecif, const char **pf, t_param *param)
@@ -59,7 +64,7 @@ static int	check_specifier(char *dspecif, const char **pf, t_param *param)
 
 int			pars_specifier(const char **pf, t_param *param)
 {
-	// printf("pars_specifier\n"); //////////////////////////////////////////
+	// printf("\npars_specifier\n"); //////////////////////////////////////////
 	int ret;
 	char *dspecif;
 

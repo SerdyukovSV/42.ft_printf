@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 14:48:52 by gartanis          #+#    #+#             */
-/*   Updated: 2019/12/30 20:28:19 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/07 20:18:18 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,16 @@ typedef struct			s_param
 		char			hash;
 		char			dot;
 	}					t_flag;
+	int					modifier;	
 	char				specifier;
 	int					width;
 	int					precision;
 }						t_param;
 
 # define PRINT_ERROR	(-1)
-# define SPECIFIER		"cspdiouxXf"
+# define SPECIFIER		"cCsSpdDioOuUxXf"
 # define FLAGS			"+- #0."
+# define PREFIX 		"0x"
 # define SPEC_LEN		(ft_strlen(SPECIFIER))
 
 /*
@@ -76,11 +78,12 @@ typedef struct			s_param
 ** size modifiers
 */
 
-# define MOD_LOW_H		('h')
-# define MOD_LOW_HH		("hh")
-# define MOD_LOW_L		('l')
-# define MOD_LOW_LL		("ll")
-# define MOD_UP_L		('L')
+# define H				(1)
+# define HH				(2)
+# define L				(4)
+# define LL				(8)
+# define UPP_L			(16)
+# define UPP_D			(32)
 
 /*
 ** prototypes of basic functions
@@ -98,5 +101,6 @@ void					print_space(int offset);
 int						print_percent(const char **pf);
 int						print_char(t_param *param, va_list args);
 int						print_string(t_param *param, va_list args);
+int						print_pointer(t_param *param, va_list args);
 
 #endif

@@ -21,9 +21,9 @@ static int		print_printf(char specif, t_param *param, va_list args)
 		ret = print_char(param, args);
 	else if (specif == SPEC_S)
 		ret = print_string(param, args);
-	/* else if (specif == SPEC_P)
+	else if (specif == SPEC_P)
 		ret = print_pointer(param, args);
-	else if (specif == SPEC_D || specif == SPEC_I)
+	/* else if (specif == SPEC_D || specif == SPEC_I)
 		ret = print_decimal(param, args);
 	else if (specif == SPEC_O)
 		ret = print_octal(param, args);
@@ -49,6 +49,7 @@ static	int		print_stdout(const char *pf[], va_list args)
 	param.precision     = 0;
 	param.specifier     = 0;
 	param.t_flag.dot	= 0;
+	param.modifier		= 0;
 	if (!(*pf))
         return (PRINT_ERROR);
     else if ((pars_specifier(pf, &param)) != PRINT_ERROR)
