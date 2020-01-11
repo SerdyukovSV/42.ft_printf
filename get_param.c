@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 17:22:15 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/07 20:16:53 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/11 21:12:14 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,23 @@ static int	get_precision(const char **precis, t_param *param)
 
 static int	get_modifier(const char **modif, t_param *param)
 {
+	// printf("get_modifier\n"); //////////////////////////////////////////
 	int i;
+	const char *ptr;
 
 	i = 0;
-	if (*modif[i] == 'h')
+	ptr = *modif;
+	if (ptr[i] == 'h')
 	{
-		param->modifier |= (*modif[i + 1] == 'h') ? HH : H;
+		param->modifier |= (ptr[i + 1] == 'h') ? HH : H;
 		i = (param->modifier & HH) ? 2 : 1;
 	}
-	else if (*modif[i] == 'l')
+	else if (ptr[i] == 'l')
 	{
-		param->modifier |= (*modif[i + 1] == 'l') ? LL : L;
+		param->modifier |= (ptr[i + 1] == 'l') ? LL : L;
 		i = (param->modifier & LL) ? 2 : 1;
 	}
-	else if (*modif[i] == 'L')
+	else if (ptr[i] == 'L')
 	{
 		param->modifier |= UPP_L;
 		i += 1;

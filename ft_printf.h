@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 14:48:52 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/07 20:18:18 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/08 18:56:07 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,11 @@ int						get_param(const char **pf, t_param *param);
 ** prototypes print function
 */
 
-void					print_space(int offset);
+void					print_space(int offset, char flag);
 int						print_percent(const char **pf);
 int						print_char(t_param *param, va_list args);
 int						print_string(t_param *param, va_list args);
 int						print_pointer(t_param *param, va_list args);
+int 					print_decimal(t_param *param, va_list args);
 
 #endif

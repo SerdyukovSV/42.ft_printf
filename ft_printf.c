@@ -14,6 +14,7 @@
 
 static int		print_printf(char specif, t_param *param, va_list args)
 {
+	// printf("print_printf\n"); //////////////////////////////////////////
 	int ret;
 
 	ret = 0;
@@ -23,9 +24,9 @@ static int		print_printf(char specif, t_param *param, va_list args)
 		ret = print_string(param, args);
 	else if (specif == SPEC_P)
 		ret = print_pointer(param, args);
-	/* else if (specif == SPEC_D || specif == SPEC_I)
+	else if (specif == 'd' || specif == 'D' || specif == 'i')
 		ret = print_decimal(param, args);
-	else if (specif == SPEC_O)
+	/*else if (specif == SPEC_O)
 		ret = print_octal(param, args);
 	else if (specif == SPEC_LOW_X || specif == SPEC_UP_X)
 		ret = print_hexadecimal(param, args);

@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 17:51:39 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/05 20:26:14 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/08 13:50:11 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ int			print_pointer(t_param *param, va_list args)
 	if ((len = get_pointer(ptr, &sptr)) == PRINT_ERROR)
 		return (len);
 	if (param->width && !(param->t_flag.minus == MINUS))
-		print_space(param->width - len);
+		print_space(param->width - len, SPACE);
 	ft_putstr(sptr);
     free(sptr);
 	if (param->width && param->t_flag.minus == MINUS)
-		print_space(param->width - len);
+		print_space(param->width - len, SPACE);
 	return (len);
 }

@@ -6,19 +6,19 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 16:16:44 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/07 16:12:36 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/11 21:11:53 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void		print_space(int width)
+void		print_space(int width, char flag)
 {
 	int i;
 
 	i = 0;
 	while (i++ < width)
-		ft_putchar(SPACE);
+		ft_putchar(flag);
 }
 
 int			print_percent(const char **pf)
@@ -52,6 +52,8 @@ static int	check_specifier(char *dspecif, const char **pf, t_param *param)
 		while (ft_strchr(flags, *cp))
 			cp += 1;
 		while (ft_isdigit(*cp) || *cp == DOT)
+			cp += 1;
+		while (*cp == 'h' || *cp == 'l' || *cp == 'L')
 			cp += 1;
 		if (ft_strchr(pdsp, *cp))
 			break ;
