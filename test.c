@@ -43,7 +43,7 @@ int main(void)
     unsigned long nb1 = 564;
     unsigned long long nb2 = UINT64_MAX;
     double ff = 57.00000;
-    i = -123;
+    i = 123;
 
     // printf("asd%cfghj\n", c2);
     // printf("%+07d %d\n", i, i);
@@ -52,7 +52,7 @@ int main(void)
     // printf("% 8.5d %d\n", i, i);
 
 
-        /* printf("1\n");
+         /* printf("1\n");
               printf("%+d\n", i);
            ft_printf("%+d\n", i);
         printf("2\n");
@@ -97,8 +97,11 @@ int main(void)
         printf("15\n");        
               printf("%.d\n", i);
            ft_printf("%.d\n", i);
+        printf("16\n");
+              printf("%7d\n", i);
+           ft_printf("%7d\n", i); */
 
-        printf("1\n");
+      /*  printf("1\n");
               printf("%+-d %d\n", i, i);
            ft_printf("%+-d %d\n", i, i);
         printf("2\n");
@@ -145,8 +148,29 @@ int main(void)
            ft_printf("%-.d %d\n", i, i); */
 
     // int q = UINT64_MAX;
-       printf("%lu\n", UINT64_MAX);
-    ft_printf("%llu\n", UINT64_MAX);
+      //  printf("% u\n", i); -
+      // printf("%+u\n", i); -
+      unsigned long long w = UINT64_MAX;
+      // intptr_t p = UINT64_MAX;
+         // printf("%07x %#X\n", i, i);
+         // printf("%#10.6x\n", 813582);
+         // printf("%#07x\n", INT16_MAX);
+         printf("%09.15X\n", INT16_MAX);
+      ft_printf("%09.15X\n", INT16_MAX);
+         /* printf("%7u %u\n", i, i);
+      ft_printf("%7u %u\n", i, i);
+         printf("%-7u %u\n", i, i);
+      ft_printf("%-7u %u\n", i, i);
+         printf("%07u %u\n", i, i);
+      ft_printf("%07u %u\n", i, i);
+         printf("%.5u %u\n", i, i);
+      ft_printf("%.5u %u\n", i, i);
+         printf("%7.5u %u\n", i, i);
+      ft_printf("%7.5u %u\n", i, i);
+         printf("%-7.5u %u\n", i, i);
+      ft_printf("%-7.5u %u\n", i, i); */
+         
+   //  ft_printf("%llu\n", UINT64_MAX);
 
 
     /*                flsgs          

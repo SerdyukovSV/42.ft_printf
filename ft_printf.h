@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 14:48:52 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/08 18:56:07 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/12 22:15:55 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,9 @@ typedef struct			s_param
 int						ft_printf(const char *format, ...);
 int						pars_specifier(const char **specif, t_param *param);
 int						get_param(const char **pf, t_param *param);
+char    				verif_sign(t_param *param, intmax_t nbr);
+void    				print_flags(char ch1, int n1, char ch2, \
+									int n2, char ch3, int n3);
 
 /*
 ** prototypes print function
@@ -101,7 +104,9 @@ void					print_space(int offset, char flag);
 int						print_percent(const char **pf);
 int						print_char(t_param *param, va_list args);
 int						print_string(t_param *param, va_list args);
-int						print_pointer(t_param *param, va_list args);
+int						print_hexadecimal(t_param *param, va_list args);
 int 					print_decimal(t_param *param, va_list args);
+int  					print_signed(intmax_t nbr, t_param *param);
+int  					print_unsigned(uintmax_t nbr, t_param *param);
 
 #endif

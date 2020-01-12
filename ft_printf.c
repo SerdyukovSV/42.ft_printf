@@ -22,9 +22,11 @@ static int		print_printf(char specif, t_param *param, va_list args)
 		ret = print_char(param, args);
 	else if (specif == SPEC_S)
 		ret = print_string(param, args);
-	else if (specif == SPEC_P)
-		ret = print_pointer(param, args);
+	else if (specif == 'p' || specif == 'x' || specif == 'X')
+		ret = print_hexadecimal(param, args);
 	else if (specif == 'd' || specif == 'D' || specif == 'i')
+		ret = print_decimal(param, args);
+	else if (specif == 'u' || specif == 'U')
 		ret = print_decimal(param, args);
 	/*else if (specif == SPEC_O)
 		ret = print_octal(param, args);
