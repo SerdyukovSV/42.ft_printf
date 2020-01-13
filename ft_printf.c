@@ -28,10 +28,9 @@ static int		print_printf(char specif, t_param *param, va_list args)
 		ret = print_decimal(param, args);
 	else if (specif == 'u' || specif == 'U')
 		ret = print_decimal(param, args);
-	/*else if (specif == SPEC_O)
+	else if (specif == 'o')
 		ret = print_octal(param, args);
-	else if (specif == SPEC_LOW_X || specif == SPEC_UP_X)
-		ret = print_hexadecimal(param, args);
+	/*
 	else
 		ret = print_no_specifier(); */
 	return (ret);

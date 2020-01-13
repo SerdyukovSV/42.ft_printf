@@ -6,46 +6,28 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 17:51:39 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/12 22:15:50 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/13 19:55:06 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	print_flags2(char *ch1, int n1, char *ch2, int n2, char *ch3, int n3)
+void	print_flags2(char *ch1, int n1, char *ch2, int n2, char *ch3, int n3)
 {
     int i;
 
-    i = 0;
-    while (ch1 && i < n1)
-	{
-		if (ft_strlen(ch1) > 1)
-        	ft_putchar(ch1[i]);
-		else
-			ft_putchar(*ch1);
-		i++;
-	}
-    i = 0;
-    while (ch2 && i < n2)
-	{
-        if (ft_strlen(ch2) > 1)
-        	ft_putchar(ch2[i]);
-		else
-			ft_putchar(*ch2);
-		i++;
-	}
-    i = 0;
-    while (ch3 && i < n3)
-	{
-        if (ft_strlen(ch3) > 1)
-        	ft_putchar(ch3[i]);
-		else
-			ft_putchar(*ch3);
-		i++;
-	}
+    i = -1;
+    while (ch1 && ++i < n1)
+        ft_putchar(ft_strlen(ch1) > 1 ? ch1[i] : *ch1);
+    i = -1;
+    while (ch2 && ++i < n2)
+		ft_putchar(ft_strlen(ch2) > 1 ? ch2[i] : *ch2);
+    i = -1;
+    while (ch3 && ++i < n3)
+		ft_putchar(ft_strlen(ch3) > 1 ? ch3[i] : *ch3);
 }
 
-static int	get_hexadecimal(uintmax_t hex, char **sptr, t_param *param)
+int	get_hexadecimal(uintmax_t hex, char **sptr, t_param *param)
 {
 	char		*str;
 	int			i;
@@ -53,7 +35,7 @@ static int	get_hexadecimal(uintmax_t hex, char **sptr, t_param *param)
 
 	i = 0;
 	cphex = hex;
-	while (cphex /= 0x10)
+	while (cphex /= (param->specifier == 'o' ? 8 : 0x10))
 		i++;
 	i += param->specifier == 'p' ? 3 : 1;
 	if (!(str = (char *)malloc(sizeof(char) * i)))
@@ -67,7 +49,9 @@ static int	get_hexadecimal(uintmax_t hex, char **sptr, t_param *param)
 				str[i] = "0123456789abcdef"[hex % 0x10];
 			else if (param->specifier == 'X')
 				str[i] = "0123456789ABCDEF"[hex % 0x10];
-			hex /= 0x10;
+			else if (param->specifier == 'o')
+				str[i] = "012345678"[hex % 8];
+			hex /= (param->specifier == 'o' ? 8 : 0x10);
 		}
 		else if (param->specifier == 'p')
 			str[i] = PREFIX[i];
@@ -76,45 +60,42 @@ static int	get_hexadecimal(uintmax_t hex, char **sptr, t_param *param)
 	return (ft_strlen(str));
 }
 
-static int	unsigned_hex(uintmax_t hex, t_param *param)
+static int	unsigned_hex(uintmax_t hex, t_param *prm)
 {
 	int len;
 	char *str;
-	int pref;
+	int hash;
 	int len_sp;
-	char prefix[2] = "0x";
 
-	pref = param->t_flag.hash == '#' ?	2 : 0;
-	len = get_hexadecimal(hex, &str, param);
-	len_sp = param->width - len - pref - (param->precision - len);
-	if (!param->t_flag.minus && (param->width || param->t_flag.dot))
+	hash = prm->t_flag.hash == '#' ?	2 : 0;
+	len = get_hexadecimal(hex, &str, prm);
+	len_sp = prm->width - len - hash - \
+		(prm->precision > 0 ? prm->precision - len : 0);
+	if (!prm->t_flag.minus && (prm->width || prm->t_flag.dot))
     {
-        if (param->t_flag.zero && !param->t_flag.dot)
-			print_flags2(param->specifier == 'X' ? "0X" : PREFIX, pref, "0", len_sp, 0, 0);
-        else if (param->t_flag.dot)
-            print_flags2(" ", len_sp, param->specifier == 'X' ? "0X" : \
-				PREFIX, pref, "0", param->precision - len);
+        if (prm->t_flag.zero && !prm->t_flag.dot)
+			print_flags2(prm->specifier == 'X' ? "0X" : "0x", hash, "0", len_sp, 0, 0);
+        else if (prm->t_flag.dot)
+            print_flags2(" ", len_sp, prm->specifier == 'X' ? "0X" : \
+				PREFIX, hash, "0", prm->precision - len);
         else
-            print_flags2(" ", len_sp, param->specifier == 'X' ? "0X" : PREFIX, pref, 0, 0);
+            print_flags2(" ", len_sp, prm->specifier == 'X' ? "0X" : "0x", hash, 0, 0);
     }
-    // else if (param->t_flag.dot || param->t_flag.plus || param->t_flag.space)
-    //     print_flags(csign, 1, '0', param->precision - len, 0, 0);
+	else if (hash > 0 || prm->t_flag.dot)
+		print_flags2(prm->specifier == 'X' ? "0X" : PREFIX, \
+			hash, "0", prm->precision - len, 0, 0);
     ft_putstr(str);
-    if (param->t_flag.minus)
-        print_flags(' ', len_sp - (((param->precision - len) < 0) ? \
-            0 : param->precision - len), 0, 0, 0, 0);
+    if (prm->t_flag.minus)
+        print_flags2(0, 0, 0, 0, " ", len_sp);
     free(str);
-
 	return(len);
 }
 
 static int	print_pointer(intptr_t ptr, t_param *param)
 {
-	// intptr_t	ptr;
 	char		*sptr;
 	int			len;
 
-	// ptr = va_arg(args, intptr_t);
 	if (ptr < 0)
 		return (PRINT_ERROR);
 	if ((len = get_hexadecimal(ptr, &sptr, param)) == PRINT_ERROR)
@@ -145,6 +126,5 @@ int			print_hexadecimal(t_param *param, va_list args)
 		len = print_pointer(va_arg(args, intptr_t), param);
 	else
 		len = unsigned_hex(va_arg(args, unsigned int), param);
-
 	return (len);
 }

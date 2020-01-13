@@ -150,13 +150,44 @@ int main(void)
     // int q = UINT64_MAX;
       //  printf("% u\n", i); -
       // printf("%+u\n", i); -
-      unsigned long long w = UINT64_MAX;
+      unsigned long w = UINT32_MAX;
       // intptr_t p = UINT64_MAX;
+      
          // printf("%07x %#X\n", i, i);
-         // printf("%#10.6x\n", 813582);
+         // printf("%#10.15x\n", INT16_MAX);
          // printf("%#07x\n", INT16_MAX);
-         printf("%09.15X\n", INT16_MAX);
-      ft_printf("%09.15X\n", INT16_MAX);
+      //    printf("%#09.15X\t%#09.15x\t%X\t%x\n", INT16_MAX, INT16_MAX, INT16_MAX, INT16_MAX);
+      // ft_printf("%#09.15X\t%#09.15x\t%X\t%x\n", INT16_MAX, INT16_MAX, INT16_MAX, INT16_MAX);
+      //    printf("%X\n", INT16_MAX);
+      //    printf("%#-10X\t%#x\t%#-15.10X\n", INT16_MAX, INT16_MAX, INT16_MAX);
+      // ft_printf("%#-10X\t%#x\t%#-15.10X\n", INT16_MAX, INT16_MAX, INT16_MAX);
+      //    printf("%#15X\t%.10X\n", INT16_MAX, INT16_MAX);
+      // ft_printf("%#15X\t%.10X\n", INT16_MAX, INT16_MAX);
+
+           printf("%o\n", INT16_MAX);
+        ft_printf("%o\n", INT16_MAX);
+         printf("\n%#o\n", INT16_MAX);
+        ft_printf("%#o\n", INT16_MAX);
+         printf("\n%9o\n", INT16_MAX);
+        ft_printf("%9o\n", INT16_MAX);
+         printf("\n%09o\n", INT16_MAX);
+        ft_printf("%09o\n", INT16_MAX);
+         printf("\n%#9o\n", INT16_MAX);
+        ft_printf("%#9o\n", INT16_MAX);
+         printf("\n%#09o\n", INT16_MAX);
+        ft_printf("%#09o\n", INT16_MAX);
+
+         printf("\n%#.9o\n", INT16_MAX);
+        ft_printf("%#.9o\n", INT16_MAX); //---
+      
+         printf("\n%15.9o\n", INT16_MAX);
+        ft_printf("%15.9o\n", INT16_MAX);
+
+         printf("\n%#15.9o\n", INT16_MAX);
+        ft_printf("%#15.9o\n", INT16_MAX); //--
+
+      // printf("%o\n", w);
+
          /* printf("%7u %u\n", i, i);
       ft_printf("%7u %u\n", i, i);
          printf("%-7u %u\n", i, i);
@@ -185,13 +216,3 @@ int main(void)
     // width 
     return 0;
 }
-/* 
-void    print_flags(char ch1, int n1, char ch2, int n2, char ch3, int n3)
-{
-    while (ch1 && n1 > 0)
-        ft_putchar(ch1);
-    while (ch2 && n2 > 0)
-        ft_putchar(ch2);
-    while (ch3 && n3 > 0)
-        ft_putchar(ch3);
-} */
