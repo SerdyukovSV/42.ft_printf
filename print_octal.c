@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 17:51:39 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/13 20:05:08 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/14 15:54:18 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,18 @@ static int	unsigned_octal(uintmax_t hex, t_param *prm)
 	hash = prm->t_flag.hash == '#' ?	1 : 0;
 	len = get_hexadecimal(hex, &str, prm);
 	len_sp = prm->width - len - hash - \
-		(prm->precision > 0 ? prm->precision - len : 0);
+		(prm->precision > 0 ? prm->precision - len - hash : 0);
 	if (!prm->t_flag.minus && (prm->width || prm->t_flag.dot))
     {
         if (prm->t_flag.zero && !prm->t_flag.dot)
 			print_flags2("0", hash, "0", len_sp, 0, 0);
         else if (prm->t_flag.dot)
-            print_flags2(" ", len_sp, "0", hash, "0", prm->precision - len);
+            print_flags2(" ", len_sp, "0", hash, "0", prm->precision - len - hash);
         else
             print_flags2(" ", len_sp, "0", hash, 0, 0);
     }
 	else if (hash > 0 || prm->t_flag.dot)
-		print_flags2("0", hash, "0", prm->precision - len, 0, 0);
+		print_flags2("0", hash, "0", prm->precision - len - hash, 0, 0);
     ft_putstr(str);
     if (prm->t_flag.minus)
         print_flags2(0, 0, 0, 0, " ", len_sp);

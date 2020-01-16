@@ -18,9 +18,9 @@ static int		print_printf(char specif, t_param *param, va_list args)
 	int ret;
 
 	ret = 0;
-	if (specif == SPEC_C)
+	if (specif == 'c')
 		ret = print_char(param, args);
-	else if (specif == SPEC_S)
+	else if (specif == 's')
 		ret = print_string(param, args);
 	else if (specif == 'p' || specif == 'x' || specif == 'X')
 		ret = print_hexadecimal(param, args);

@@ -13,37 +13,55 @@
 int main(void)
 {   
 
-    char *str = "adress pointer";
-    char *str2 = "adress variable";
-    char *str3 = "Nice day";
-    char c = ':';
+   //  char *str = "adress pointer";
+   //  char *str2 = "adress variable";
+   //  char *str3 = "Nice day";
+   //  char c = ':';
     
-    int a = 5;
-    int *p = &a;
+   //  int a = 5;
+   //  int *p = &a;
     // intptr_t nb = sizeof(intptr_t);
     // ft_printf("%-15.7s %% %c %-20p %% W%.s %c %p\n", str, c, &p, str2, c, p);
     //    printf("%-15.7s %% %c %-20p %% W%.s %c %p\n", str, c, &p, str2, c, p);
 
-    struct  test
-    {
-        int flag;
-    }       t_test;
+   //  struct  test
+   //  {
+   //      int flag;
+   //  }       t_test;
     
-    int d = 0x7fffffff;
-    short int aa = sizeof(intmax_t);
-    wchar_t ch = L'ф';
+   // //  int d = 0x7fffffff;
+   //  short int aa = sizeof(intmax_t);
+   //  wchar_t ch = L'ф';
     
-    // int c = 1 << 3;
-    int f = 1 << 5;
+   //  // int c = 1 << 3;
+   // //  int f = 1 << 5;
 
-    t_test.flag |= HH;
-    // t_test.flag |= f;
-    int i = (t_test.flag & HH) ? 2 : 1;
+   //  t_test.flag |= HH;
+   //  // t_test.flag |= f;
+   //  int i;
 
-    unsigned long nb1 = 564;
-    unsigned long long nb2 = UINT64_MAX;
-    double ff = 57.00000;
-    i = 123;
+   //  unsigned long nb1 = 564;
+   //  unsigned long long nb2 = UINT64_MAX;
+   //  double ff = 57.00000;
+
+   float f = 233.007;
+   double d = 1.7602314e+30;
+   double d2 = 10;
+   double d3;
+
+   // while (d)
+   // {
+
+   // }
+   
+   
+   
+   // if (d < 0.)
+   //    printf("true\n");
+   
+   printf("%f\n", d);
+
+   //  i = 123;
 
     // printf("asd%cfghj\n", c2);
     // printf("%+07d %d\n", i, i);
@@ -150,7 +168,7 @@ int main(void)
     // int q = UINT64_MAX;
       //  printf("% u\n", i); -
       // printf("%+u\n", i); -
-      unsigned long w = UINT32_MAX;
+      // unsigned long w = UINT32_MAX;
       // intptr_t p = UINT64_MAX;
       
          // printf("%07x %#X\n", i, i);
@@ -164,27 +182,44 @@ int main(void)
       //    printf("%#15X\t%.10X\n", INT16_MAX, INT16_MAX);
       // ft_printf("%#15X\t%.10X\n", INT16_MAX, INT16_MAX);
 
-           printf("%o\n", INT16_MAX);
-        ft_printf("%o\n", INT16_MAX);
-         printf("\n%#o\n", INT16_MAX);
-        ft_printf("%#o\n", INT16_MAX);
-         printf("\n%9o\n", INT16_MAX);
-        ft_printf("%9o\n", INT16_MAX);
-         printf("\n%09o\n", INT16_MAX);
-        ft_printf("%09o\n", INT16_MAX);
-         printf("\n%#9o\n", INT16_MAX);
-        ft_printf("%#9o\n", INT16_MAX);
-         printf("\n%#09o\n", INT16_MAX);
-        ft_printf("%#09o\n", INT16_MAX);
-
-         printf("\n%#.9o\n", INT16_MAX);
-        ft_printf("%#.9o\n", INT16_MAX); //---
-      
-         printf("\n%15.9o\n", INT16_MAX);
-        ft_printf("%15.9o\n", INT16_MAX);
-
-         printf("\n%#15.9o\n", INT16_MAX);
-        ft_printf("%#15.9o\n", INT16_MAX); //--
+      //      printf("%o\n", INT16_MAX);
+      //   ft_printf("%o\n", INT16_MAX);
+      //    printf("\n%#o\n", INT16_MAX);
+      //   ft_printf("%#o\n", INT16_MAX);
+      //    printf("\n%9o\n", INT16_MAX);
+      //   ft_printf("%9o\n", INT16_MAX);
+      //    printf("\n%09o\n", INT16_MAX);
+      //   ft_printf("%09o\n", INT16_MAX);
+      //    printf("\n%#9o\n", INT16_MAX);
+      //   ft_printf("%#9o\n", INT16_MAX);
+      //    printf("\n%#09o\n", INT16_MAX);
+      //   ft_printf("%#09o\n", INT16_MAX);
+      //    printf("\n%#.9o\n", INT16_MAX);
+      //   ft_printf("%#.9o\n", INT16_MAX);      
+      //    printf("\n%15.9o\n", INT16_MAX);
+      //   ft_printf("%15.9o\n", INT16_MAX);
+      //    printf("\n%#15.9o\n", INT16_MAX);
+      //   ft_printf("%#15.9o\n", INT16_MAX);
+        
+      //   printf("-------------------------\n");
+      //      printf("%-o\t%o\n", INT16_MAX, INT16_MAX);
+      //   ft_printf("%-o\t%o\n", INT16_MAX, INT16_MAX);
+      //    printf("\n%#-o\t%#o\n", INT16_MAX, INT16_MAX);
+      //   ft_printf("%#-o\t%#o\n", INT16_MAX, INT16_MAX);
+      //    printf("\n%-9o\t%9o\n", INT16_MAX, INT16_MAX);
+      //   ft_printf("%-9o\t%9o\n", INT16_MAX, INT16_MAX);
+      //    printf("\n%-9o\t%09o\n", INT16_MAX, INT16_MAX);
+      //   ft_printf("%-9o\t%09o\n", INT16_MAX, INT16_MAX);
+      //    printf("\n%#-9o\t%#9o\n", INT16_MAX, INT16_MAX);
+      //   ft_printf("%#-9o\t%#9o\n", INT16_MAX, INT16_MAX);
+      //    printf("\n%#-9o\t%#09o\n", INT16_MAX, INT16_MAX);
+      //   ft_printf("%#-9o\t%#09o\n", INT16_MAX, INT16_MAX);
+      //    printf("\n%#-.9o\t%#.9o\n", INT16_MAX, INT16_MAX);
+      //   ft_printf("%#-.9o\t%#.9o\n", INT16_MAX, INT16_MAX);
+      //    printf("\n%-15.9o\t%15.9o\n", INT16_MAX, INT16_MAX);
+      //   ft_printf("%-15.9o\t%15.9o\n", INT16_MAX, INT16_MAX);
+      //    printf("\n%#-15.9o\t%#15.9o\n", INT16_MAX, INT16_MAX);
+      //   ft_printf("%#-15.9o\t%#15.9o\n", INT16_MAX, INT16_MAX);
 
       // printf("%o\n", w);
 
