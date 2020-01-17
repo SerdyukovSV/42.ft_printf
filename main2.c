@@ -18,7 +18,7 @@ char    *ft_strrev(char *src)
     return (dst);
 }
 
-double  power(double nbr, long n)
+long double  power(long double nbr, int n)
 {
     if (n == 0)
         return (1);
@@ -48,12 +48,60 @@ char *get_bin(unsigned char c)
     return (tmp);
 }
 
+int get_exponent(char **exp)
+{
+    int i;
+    int res;
+
+    i = 10;
+    res = 0;
+    while (i >= 0)
+    {
+        res += (**exp - 48) * (power(2, i));
+        *exp += 1;
+        i -= 1;
+    }
+    return (res - 1023);
+}
+
+unsigned char    *get_mantisa(char **mant)
+{
+    int i;
+    long double res;
+    unsigned char *bin_str;
+
+    i = -1;
+    while (i >= (-52))
+    {
+        res += (**mant - 48) * (power(2, i));
+        *mant += 1;
+        i -= 1;
+    }
+    if (!(bin_str = (unsigned char *)malloc(sizeof(unsigned char) * 52 + 1)))
+        return (NULL);
+    i = 0;
+    while (res && i <= 52)
+    {
+        res *= 10;
+        bin_str[i] = (unsigned char)res;
+        res -= (long double)bin_str[i];
+        bin_str[i] += 48;
+        i += 1;        
+    }
+    bin_str[i] = '\0';
+    return (bin_str);
+}
+
+// char    *addition_bigint(char *num1, char *num2)
+// {
+// }
+
 int main(void)
 {
     int nbr = 2;
     int n = -5;
     int n2 = 5;
-    double d = 1.41999999999999992894572642399E0;
+    double d = 1.42;
     int i;
 
     char *str_bin;
@@ -63,10 +111,17 @@ int main(void)
     ft_memcpy(str, &d, sizeof(double));
     i = sizeof(double);
     while (--i >= 0)
-    {
-            str_bin = ft_strcat(str_bin, get_bin(str[i]));
-            printf("%s\n", str_bin);
-    }
+        str_bin = ft_strcat(str_bin, get_bin(str[i]));
+    // printf("%s\n", str_bin);
+    char sign = *str_bin == 1 ? '-' : '+';
+    // printf("%c\n", sign);
+    str_bin += 1;
+    int exp = get_exponent(&str_bin);
+    // printf("exp = %d\n", exp);
+    unsigned char *convers_bin;
+    convers_bin = get_mantisa(&str_bin);
+    // ft_putstr((const char *)convers_bin);
+    
 
 
     // printf("rais to power : %d\n", (int)power(nbr, n));
