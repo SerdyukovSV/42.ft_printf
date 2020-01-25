@@ -40,33 +40,7 @@ int main(void)
    //  // t_test.flag |= f;
    //  int i;
 
-   //  unsigned long nb1 = 564;
-   //  unsigned long long nb2 = UINT64_MAX;
-   //  double ff = 57.00000;
 
-   long double f = 3.332999999999999740651901447563432157039642333984375;
-   long double d2 = 0.420000;
-   double d = 0.000000000000000222044604925031308084726333618164062;
-   //            0000000000000002220446049250313080847263336181640625
-   long double d3 = 2.220446049250313081e-16 /*  */;
-   unsigned long l = (unsigned long)d3;
-   unsigned char ch;
-   int i =0;
-   ch = (unsigned char)d2;
-   // printf("%u\n", ch);
-   while (d2)
-   {
-      d2 *= 10;
-      ch = (unsigned char)d2;
-      d2 -= (long double)ch;
-      i += 1;
-      // printf("%u", ch);
-   }
-   // printf("\n%Lf\n", f);
-   printf("i = %d\n", i);
-   char *str = "6664999999999998703259507237817160785198211669921875";
-   printf("strlen(str) = %zd\n", ft_strlen(str));
-   //    if (d3 < 1)
    
    //0.0078125
 
