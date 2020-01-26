@@ -48,15 +48,15 @@ char *get_bin(unsigned char c)
     return (tmp);
 }
 
-int get_exponent(char **exp, int len, int correct)
+int get_exponent(char *exp, int len, int correct)
 {
     int res;
 
     res = 0;
     while (len >= 0)
     {
-        res += (**exp - 48) * (ft_power(2, len));
-        *exp += 1;
+        res += (*exp - 48) * (ft_power(2, len));
+        exp += 1;
         len -= 1;
     }
     return (res - correct);
@@ -95,7 +95,6 @@ int *divide_bigint(int *mant, int exp, int *len)
         }
         return (divide_bigint(mant, exp + 1, len));
     }
-    *len -= 1;
     return (mant);
 }
 
@@ -153,7 +152,7 @@ int *multiply_bigint(int *mant, int exp, int *len)
     return (mant);
 }
 
-int *get_mantisa(char **mant, int *len, int *bin_dec)
+int *get_mantisa(char *mant, int *len, int *bin_dec)
 {
     int i;
     int k;
@@ -162,10 +161,10 @@ int *get_mantisa(char **mant, int *len, int *bin_dec)
 
     i = -1;
     k = 0;
-    while (**mant != '\0' && i >= -64)
+    while (*mant != '\0' && i >= -64)
     {
-        res[k++] = (**mant - 48) * (ft_power(2, i--));
-        *mant += 1;
+        res[k++] = (*mant - 48) * (ft_power(2, i--));
+        mant += 1;
     }
     if (!(bin_dec = (int *)malloc(sizeof(int) * (++i * -1)+2)))
         return (NULL);
@@ -193,98 +192,85 @@ int *get_mantisa(char **mant, int *len, int *bin_dec)
 1bit        15bit                                    64bit
 */
 
-/*
-0.000335999999999999981407233784480581562092993408441543579101562
-
-*/
 // (-1)Sign × (1 + Mantissa) × 2(Exponent adjusted);
 
-int printf_f(double d)
+static char *ft_dectostr(int *arr, int sign, int len)
 {
-    int     i;
-    int     len;
-    int     *bin_dec;
-    char    *str_bin;
+    int i;
+    int k;
+    char *str;
 
-    unsigned char str[sizeof(double) + 1];
-    if (!(str_bin = (char *)malloc(sizeof(char) * 100)))
+    if (!(str = (char *)malloc(sizeof(char) * len+1+sign)))
         return (0);
-    ft_memcpy(str, &d, sizeof(double));
-    len = sizeof(double);
+    k = -1;
+    i = 0;
+    (sign == 1) ? str[i++] = 45 : 0;
+    while (++k < len)
+        str[i++] = (arr[k] == 46) ? 46 : arr[k] + 48;
+    str[i] = '\0';
+    return (str);
+}
+
+int printf_f(double d, int len)
+{
+    int     exp;
+    int     *bin_dec;
+    char    *str;
+    unsigned char str_mem[len + 1];
+
+    if (!(str = (char *)malloc(sizeof(char) * 100)))
+        return (0);
+    ft_memcpy(str_mem, &d, len);
     while (--len >= 0)
-        str_bin = ft_strcat(str_bin, get_bin(str[len]));
-    char sign = *str_bin == 1 ? '-' : '+';
-    str_bin += 1;
-    int exp = get_exponent(&str_bin, 10, 1023);
-    bin_dec = get_mantisa(&str_bin, &len, bin_dec);
-
-    printf("exp = %d\n", exp);
-
-    bin_dec = multiply_bigint(bin_dec, exp, &len);
-
-    i = -1;
-
-    while (i++ < len)
-    {
-        if (bin_dec[i] == 46)
-            printf(".");
-        else
-            printf("%d", bin_dec[i]);
-    }
+        str = ft_strcat(str, get_bin(str_mem[len]));
+    exp = get_exponent(str + 1, 10, 1023);
+    bin_dec = get_mantisa(str + 12, &len, bin_dec);
+    (exp >= 0) ? bin_dec = multiply_bigint(bin_dec, exp, &len) : 0;
+    (exp <  0) ? bin_dec = divide_bigint(bin_dec, exp, &len) : 0;
+    str = ft_dectostr(bin_dec, (*str == '1' ? 1 : 0), len);
+    ft_putstr(str);
     return (len);
 }
 
-int printf_lf(long double d)
+int printf_lf(long double d, int len)
 {
-    int     i;
-    int     len;
+    int     exp;
     int     *bin_dec;
-    char    *str_bin;
+    char    *str;
+    unsigned char str_mem[len + 1];
 
-    unsigned char str[10 + 1];
-    if (!(str_bin = (char *)malloc(sizeof(char) * 100)))
+    if (!(str = (char *)malloc(sizeof(char) * 100)))
         return (0);
-    ft_memcpy(str, &d, 10);
-    len = 10;
+    ft_memcpy(str_mem, &d, len);
     while (--len >= 0)
-        str_bin = ft_strcat(str_bin, get_bin(str[len]));
-    char sign = *str_bin == 1 ? '-' : '+';
-    str_bin += 1;
-    int exp = get_exponent(&str_bin, 14, 16383);
-    str_bin += 1;
-    bin_dec = get_mantisa(&str_bin, &len, bin_dec);
-    if (exp >= 0)
-        bin_dec = multiply_bigint(bin_dec, exp, &len);
-    else
-        bin_dec = divide_bigint(bin_dec, exp, &len);
-    i = -1;
-    while (i++ < len)
-    {
-        if (bin_dec[i] == 46)
-            printf(".");
-        else
-            printf("%d", bin_dec[i]);
-    }
+        str = ft_strcat(str, get_bin(str_mem[len]));
+    exp = get_exponent(str + 1, 14, 16383);
+    bin_dec = get_mantisa(str + 17, &len, bin_dec);
+    (exp >= 0) ? bin_dec = multiply_bigint(bin_dec, exp, &len) : 0;
+    (exp <  0) ? bin_dec = divide_bigint(bin_dec, exp, &len) : 0;
+    str = ft_dectostr(bin_dec, (*str == '1' ? 1 : 0), len);
+    ft_putstr(str);
     return (len);
 }
-//0.0000038096785887069446741026723657341790385544300079345703125
-//0.667999999999892679625190794467926025390625
+
+
+
 int main(void)
 {
-    double d = 0.42;
-    long double d2 = 0.0000000000000000000000000000000000000000000042;
     float f = __FLT_MAX__;
+    double d = 0.42;
+    long double d2 = __LDBL_MAX__;
 
-    int i = sizeof(float);
-    // printf("float = %lu\ndouble = %lu\nlong double = %lu\n", sizeof(float), sizeof(double), sizeof(long double));
-
+    
     // printf("\nft_printf_f:\n");
-    // printf_f(f);
-    printf("\nft_printf_lf:\n");
-    printf_lf(d2);
+    // printf_lf(f, 10);
+    printf("\nft_printf_fd:\n");
+    printf_f(d, sizeof(double));
+    // printf("\nft_printf_lfd:\n");
+    // printf_lf(d2, 10);
 
     printf("\n\nprintf:\n");
-    printf("%.264Lf\n", d2);
-    printf("%zd\n", ft_strlen(""));
+    printf("%f\n", d);
+    // printf("%zd\n", ft_strlen(""));
 
 }
