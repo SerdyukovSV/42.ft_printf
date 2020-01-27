@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 14:48:52 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/22 21:54:03 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/27 22:13:57 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct			s_param
 		char			hash;
 		char			dot;
 	}					t_flag;
-	int					modifier;	
+	int					modifier;
 	char				specifier;
 	int					width;
 	int					precision;

@@ -105,7 +105,6 @@ int *sort_bigint(int *mant, int *len)
     int             k;
 
     i = *len;
-    k = 0;
     while (--i >= 0)
     {
         if (mant[i] != 46 && mant[i] > 9 && (i - 1) >= 0)
@@ -115,6 +114,7 @@ int *sort_bigint(int *mant, int *len)
         }
         else if (mant[i] != 46 && mant[i] > 9 && (i - 1) < 0)
         {
+            k = 0;
             if (!(tmp = (int *)malloc(sizeof(int) * (*len) + 1)))
                 return (0);
             tmp[k++] = mant[i] / 10;
@@ -122,11 +122,10 @@ int *sort_bigint(int *mant, int *len)
             i = 0;
             while (++i < (*len))
                 tmp[k++] = (i == (*len -1)) ? 0 : mant[i];
-            *len += 1;
-            free(mant);
+            // free(mant);
             mant = tmp;
+            *len += 1;
             i = *len;
-            k = 0;
         }
     }
     return (mant);
@@ -206,71 +205,183 @@ static char *ft_dectostr(int *arr, int sign, int len)
     i = 0;
     (sign == 1) ? str[i++] = 45 : 0;
     while (++k < len)
-        str[i++] = (arr[k] == 46) ? 46 : arr[k] + 48;
+    {
+        str[i] = (arr[k] == 46) ? 46 : arr[k] + 48;
+        i++;
+    }
     str[i] = '\0';
     return (str);
 }
 
-int printf_f(double d, int len)
+void print_float(char *str, int precis, int *len)
+{
+    int k;
+    char str_out[ft_strlen(str)];
+
+    *len = -1;
+    while (str[++(*len)] != '.')
+        str_out[*len] = str[*len];
+    str_out[*len] = (precis > 0) ? str[*len] : '\0';
+    *len += 1;
+    while (precis > 0 && str[*len])
+    {
+        if (precis == 1)
+        {
+            str_out[*len] = (str[*len+1] > '4') ? str[*len] + 1 : str[*len];
+            k = *len;
+            while (str_out[k] > '9')
+            {
+                str_out[k] = '0';
+                str_out[k-1] += 1;
+                k--;
+            }
+        }
+        else
+            str_out[*len] = str[*len];
+        precis--;
+        *len += 1;
+    }
+    str_out[*len] = '\0';
+    ft_putstr(str_out);
+    while (precis-- > 0)
+    {
+        ft_putchar('0');
+        *len += 1;
+    }
+}
+
+char    *printf_f(double args, int len)
 {
     int     exp;
     int     *bin_dec;
+    int     *tmp;
+    char    *str_out;
     char    *str;
     unsigned char str_mem[len + 1];
 
     if (!(str = (char *)malloc(sizeof(char) * 100)))
         return (0);
-    ft_memcpy(str_mem, &d, len);
+    ft_memcpy(str_mem, &args, len);
     while (--len >= 0)
         str = ft_strcat(str, get_bin(str_mem[len]));
     exp = get_exponent(str + 1, 10, 1023);
     bin_dec = get_mantisa(str + 12, &len, bin_dec);
-    (exp >= 0) ? bin_dec = multiply_bigint(bin_dec, exp, &len) : 0;
-    (exp <  0) ? bin_dec = divide_bigint(bin_dec, exp, &len) : 0;
-    str = ft_dectostr(bin_dec, (*str == '1' ? 1 : 0), len);
-    ft_putstr(str);
-    return (len);
+    (exp >= 0) ? tmp = multiply_bigint(bin_dec, exp, &len) : 0;
+    (exp <  0) ? tmp = divide_bigint(bin_dec, exp, &len) : 0;
+    // free(bin_dec);
+    str_out = ft_dectostr(tmp, (*str == '1' ? 1 : 0), len);
+    // free(str);
+    return (str_out);
 }
 
-int printf_lf(long double d, int len)
+char    *printf_lf(long double args, int len)
 {
     int     exp;
     int     *bin_dec;
+    int     *tmp;
+    char    *str_out;
     char    *str;
     unsigned char str_mem[len + 1];
 
     if (!(str = (char *)malloc(sizeof(char) * 100)))
         return (0);
-    ft_memcpy(str_mem, &d, len);
+    ft_memcpy(str_mem, &args, len);
     while (--len >= 0)
         str = ft_strcat(str, get_bin(str_mem[len]));
     exp = get_exponent(str + 1, 14, 16383);
     bin_dec = get_mantisa(str + 17, &len, bin_dec);
-    (exp >= 0) ? bin_dec = multiply_bigint(bin_dec, exp, &len) : 0;
-    (exp <  0) ? bin_dec = divide_bigint(bin_dec, exp, &len) : 0;
-    str = ft_dectostr(bin_dec, (*str == '1' ? 1 : 0), len);
-    ft_putstr(str);
+    (exp >= 0) ? tmp = multiply_bigint(bin_dec, exp, &len) : 0;
+    (exp <  0) ? tmp = divide_bigint(bin_dec, exp, &len) : 0;
+    str_out = ft_dectostr(tmp, (*str == '1' ? 1 : 0), len);
+    return (str_out);
+}
+
+void    print_space_2(t_param *param, int len, int sign)
+{
+    int i;
+
+    i = param->width - len;
+    if (param->t_flag.zero && !param->t_flag.minus)
+    {
+        if (param->t_flag.space && !param->t_flag.plus)
+            ft_putchar(' ');
+        while (i-- > 0)
+            ft_putchar('0');
+    }
+    else if (!param->t_flag.zero && !param->t_flag.minus)
+        while (i-- > 0)
+            ft_putchar(' ');
+    if (param->t_flag.plus && (sign = 0))
+            ft_putchar('+');
+}
+
+int printf_float(va_list args, t_param *param)
+{
+    int len;
+    char *str;
+    char *space_zero;
+
+    if (param->modifier & UPP_L)
+        str = printf_lf(va_arg(args, long double), 10);
+    else
+        str = printf_f(va_arg(args, double), 8);
+    if (!param->t_flag.minus)
+    {
+        print_space_2(param, len, (*str == 45) ? 0 : 1);
+
+
+
+    
+    print_float(str, param->precision, &len);
+
     return (len);
 }
 
-
-
 int main(void)
 {
-    float f = __FLT_MAX__;
-    double d = 0.42;
-    long double d2 = __LDBL_MAX__;
+    float f = 0.425647;
+    float f2 = __FLT_MIN__;
+    double d = __DBL_MAX__;
+    double d2 = __DBL_MIN__;
+    long double dl = __LDBL_MAX__;
+    long double dl2 = __LDBL_MIN__;
+    char *str;
 
     
     // printf("\nft_printf_f:\n");
-    // printf_lf(f, 10);
-    printf("\nft_printf_fd:\n");
-    printf_f(d, sizeof(double));
-    // printf("\nft_printf_lfd:\n");
-    // printf_lf(d2, 10);
+    // str = printf_f(f, 8);
+    // print_float(str, 70);
+    // free(str);
+    // str = NULL;
+    // printf("\n\n");
+    // str = printf_lf(f2, 10);
+    // print_float(str, 7);
 
-    printf("\n\nprintf:\n");
-    printf("%f\n", d);
+
+    printf("\nprintf:\n");
+    printf("%+11.7f\n", f);
+    // printf("%.126f\n", f2);
+    // printf("%f\n%.126f\n", f, f2);
     // printf("%zd\n", ft_strlen(""));
 
+    //0.42564699053764343261719
+    //0.4256469905376434326172
+    //0.425646990537643432617
+    //0.42564699053764343262
+    //0.4256469905376434326
+    //0.425646990537643433
+    //0.425646990537643433
+    //0.42564699053764343
+    //0.4256469905376434
+    //0.425646990537643
+    //0.42564699053764
+    //0.4256469905376
+    //0.425646990538
+    //0.42564699054
+    //0.4256469905
+    //0.425646991
+    //0.42564699
+    //0.4256470
+    //0.425647
+    
 }
