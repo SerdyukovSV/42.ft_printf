@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 14:48:52 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/27 22:13:57 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/28 18:38:30 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 
 # include "libft/libft.h"
 # include <stdarg.h>
-
-#include <stdio.h>
+# include <stdio.h>
 
 /*
 ** double data structure
@@ -85,10 +84,6 @@ typedef struct			s_param
 # define UPP_L			(16)
 # define UPP_D			(32)
 
-# define H62 "0.00000000000000000021684043449710088680149056017398834228515625"
-# define H63 "0.000000000000000000108420217248550443400745280086994171142578125"
-# define H64 "0.0000000000000000000542101086242752217003726400434970855712890625"
-
 /*
 ** prototypes of basic functions
 */
@@ -96,11 +91,19 @@ typedef struct			s_param
 int						ft_printf(const char *format, ...);
 int						pars_specifier(const char **specif, t_param *param);
 int						get_param(const char **pf, t_param *param);
-char    				verif_sign(t_param *param, intmax_t nbr);
-void    				print_flags(char ch1, int n1, char ch2, \
+char					verif_sign(t_param *param, intmax_t nbr);
+void					print_flags(char ch1, int n1, char ch2, \
 									int n2, char ch3, int n3);
-void					print_flags2(char *ch1, int n1, char *ch2, int n2, char *ch3, int n3);
-int						get_hexadecimal(uintmax_t hex, char **sptr, t_param *param);
+void					print_flags2(char *ch1, int n1, char *ch2, int n2, \
+									char *ch3, int n3);
+int						get_hexadecimal(uintmax_t hex, char **sptr, \
+										t_param *param);
+char					*get_bin(unsigned char c);
+int						get_exponent(char *exp, int len, int correct);
+int						*get_mantisa(char *mant, int *len, int *bin_dec);
+int						*sort_bigint(int *mant, int *len);
+int						*divide_bigint(int *mant, int exp, int *len);
+int						*multiply_bigint(int *mant, int exp, int *len);
 
 /*
 ** prototypes print function
@@ -112,8 +115,9 @@ int						print_char(t_param *param, va_list args);
 int						print_string(t_param *param, va_list args);
 int						print_hexadecimal(t_param *param, va_list args);
 int						print_octal(t_param *param, va_list args);
-int 					print_decimal(t_param *param, va_list args);
-int  					print_signed(intmax_t nbr, t_param *param);
-int  					print_unsigned(uintmax_t nbr, t_param *param);
+int						print_decimal(t_param *param, va_list args);
+int						print_signed(intmax_t nbr, t_param *param);
+int						print_unsigned(uintmax_t nbr, t_param *param);
+int						printf_float(va_list args, t_param *param);
 
 #endif

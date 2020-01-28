@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 18:32:58 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/19 18:41:57 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/28 18:37:56 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int					ft_iscntrl(int c);
 int					ft_isgraph(int c);
 int					ft_islower(int c);
 int					ft_isupper(int c);
-int					ft_nbarrlen(int *array);
+char				*ft_strrev(char *src);
+long double			ft_power(long double nbr, int n);
+char				*ft_dectostr(int *arr, int sign, int len);
 
 #endif

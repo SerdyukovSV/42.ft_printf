@@ -24,12 +24,14 @@ static int		print_printf(char specif, t_param *param, va_list args)
 		ret = print_string(param, args);
 	else if (specif == 'p' || specif == 'x' || specif == 'X')
 		ret = print_hexadecimal(param, args);
-	else if (specif == 'd' || specif == 'D' || specif == 'i')
+	else if (specif == 'd' || specif == 'i')
 		ret = print_decimal(param, args);
-	else if (specif == 'u' || specif == 'U')
+	else if (specif == 'u')
 		ret = print_decimal(param, args);
 	else if (specif == 'o')
 		ret = print_octal(param, args);
+	else if (specif == 'f')
+		ret = printf_float(args, param);
 	/*
 	else
 		ret = print_no_specifier(); */
@@ -78,7 +80,6 @@ int		ft_printf(const char *format, ...)
 		}
 		else
 		{
-			// printf("*format = %c\n", *format); /////////////////////////////
 			ft_putchar(*format);
 			format++;
 			len_fm++;

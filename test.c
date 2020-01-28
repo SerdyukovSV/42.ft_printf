@@ -43,6 +43,24 @@ int main(void)
 
    
    //0.0078125
+   float f = __FLT_MAX__;
+   float f2 = __FLT_MIN__;
+   double d = __DBL_MAX__;
+   double d2 = __DBL_MIN__;
+   long double dl = __LDBL_MAX__;
+   long double dl2 = __LDBL_MIN__;
+   ft_printf("%f\n", f);
+      printf("%f\n", f);
+   ft_printf("%f\n", d);
+      printf("%f\n", d);
+   ft_printf("%Lf\n", dl);
+      printf("%Lf\n", dl);
+   ft_printf("%.120f\n", f2);
+      printf("%.120f\n", f2);
+   ft_printf("%.500f\n", d2);
+      printf("%.500f\n", d2);
+   ft_printf("%.1000Lf\n", dl2);
+      printf("%.1000Lf\n", dl2);
 
    //  0.5 + 0.175 + 0.03125 + 0.007 812 5 + 0.001 953 125
    //             0.10725
