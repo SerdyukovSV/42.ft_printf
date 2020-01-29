@@ -13,66 +13,57 @@
 int main(void)
 {   
 
-   //  char *str = "adress pointer";
-   //  char *str2 = "adress variable";
-   //  char *str3 = "Nice day";
-   //  char c = ':';
+    char *str = "adress pointer";
+    char *str2 = "adress variable";
+    char *str3 = "Nice day";
+    char c = ':';
     
-   //  int a = 5;
-   //  int *p = &a;
-    // intptr_t nb = sizeof(intptr_t);
-    // ft_printf("%-15.7s %% %c %-20p %% W%.s %c %p\n", str, c, &p, str2, c, p);
-    //    printf("%-15.7s %% %c %-20p %% W%.s %c %p\n", str, c, &p, str2, c, p);
-
-   //  struct  test
-   //  {
-   //      int flag;
-   //  }       t_test;
-    
-   // //  int d = 0x7fffffff;
-   //  short int aa = sizeof(intmax_t);
-   //  wchar_t ch = L'ф';
-    
-   //  // int c = 1 << 3;
-   // //  int f = 1 << 5;
-
-   //  t_test.flag |= HH;
-   //  // t_test.flag |= f;
-   //  int i;
-
+    int aa = 5;
+    int *p = &aa;
+    intptr_t nb = sizeof(intptr_t);
+   //  ft_printf("%-15.7s %% %c %-20p %% W%.s %c %p\n", str, c, &p, str2, c, p);
+   //     printf("%-15.7s %% %c %-20p %% W%.s %c %p\n", str, c, &p, str2, c, p);
+   //    printf("\n\n");
 
    
-   //0.0078125
+
+
+   int i = -755;
+   int i2 = 755;
+   float a = 0.42;
+   float a2 = -0.42;
    float f = __FLT_MAX__;
    float f2 = __FLT_MIN__;
    double d = __DBL_MAX__;
    double d2 = __DBL_MIN__;
    long double dl = __LDBL_MAX__;
    long double dl2 = __LDBL_MIN__;
-   ft_printf("%f\n", f);
-      printf("%f\n", f);
-   ft_printf("%f\n", d);
-      printf("%f\n", d);
-   ft_printf("%Lf\n", dl);
-      printf("%Lf\n", dl);
-   ft_printf("%.120f\n", f2);
-      printf("%.120f\n", f2);
-   ft_printf("%.500f\n", d2);
-      printf("%.500f\n", d2);
-   ft_printf("%.1000Lf\n", dl2);
-      printf("%.1000Lf\n", dl2);
+   // ft_printf("%% % .9f\n% 020.9f\n%d %%\n", a2, a, i);
+   //    printf("%% % .9f\n% 020.9f\n%d %%\n", a2, a, i);
+   //    printf("\n");
+   // ft_printf("% -20.9f\n% 20.9f\n%d\n", a2, a, i);
+   //    printf("% -20.9f\n% 20.9f\n%d\n", a2, a, i);
+   // ft_printf("% -20.9f\n%+20.9f\n%d\n", a2, a, i);
+   //    printf("% -20.9f\n%+20.9f\n%d\n", a2, a, i);
+   // ft_printf("% -200.10f %.100f %+20.10f\n", f, f2, a);
+   //    printf("% -200.10f %.100f %+20.10f\n", f, f2, a);
+   // // ft_printf("%f\n", d);
+   //    printf("%f\n", d);
+   // ft_printf("%Lf\n", dl);
+   //    printf("%Lf\n", dl);
+   // ft_printf("%.120f\n", f2);
+   //    printf("%.120f\n", f2);
+   // ft_printf("%.500f\n", d2);
+   //    printf("%.500f\n", d2);
+   // ft_printf("%.1000Lf\n", dl2);
+   //    printf("%.1000Lf\n", dl2);
 
-   //  0.5 + 0.175 + 0.03125 + 0.007 812 5 + 0.001 953 125
-   //             0.10725
-   //             0.1
-   //             0.20725
 
     // printf("asd%cfghj\n", c2);
     // printf("%+07d %d\n", i, i);
-    
-    // printf("%+8.5d %d\n", i, i); //НЕ РАБОТАЕТ. При выводе 0 учитывается только 1 параметр (флаг '0' && '.') если указан '.' то флаг '0' не учитывается
-    // printf("% 8.5d %d\n", i, i);
+                 
 
+         //   ft_printf("\n%+d\n%d\n", i, i2);
 
          /* printf("1\n");
               printf("%+d\n", i);
@@ -169,24 +160,33 @@ int main(void)
               printf("%-.d %d\n", i, i);
            ft_printf("%-.d %d\n", i, i); */
 
-    // int q = UINT64_MAX;
-      //  printf("% u\n", i); -
-      // printf("%+u\n", i); -
+   //  int q = UINT64_MAX;
+      // printf("% u\n", i);
+      // printf("%+u\n", i);
       // unsigned long w = UINT32_MAX;
       // intptr_t p = UINT64_MAX;
       
-         // printf("%07x %#X\n", i, i);
-         // printf("%#10.15x\n", INT16_MAX);
-         // printf("%#07x\n", INT16_MAX);
+      //    printf("%#15x %#X\n", i, i);
+      // ft_printf("%#15x %#X\n", i, i);
+      //    printf("%07x %#X\n", i, i);
+      // ft_printf("%07x %#X\n", i, i);
+      //    printf("%#025x\n", INT16_MAX);
+      // ft_printf("%#025x\n", INT16_MAX);
+      //    printf("%#10.15x\n", INT16_MAX);
+      // ft_printf("%#10.15x\n", INT16_MAX);
+      //    printf("%#07x\n", INT16_MAX);
+      // ft_printf("%#07x\n", INT16_MAX);
       //    printf("%#09.15X\t%#09.15x\t%X\t%x\n", INT16_MAX, INT16_MAX, INT16_MAX, INT16_MAX);
       // ft_printf("%#09.15X\t%#09.15x\t%X\t%x\n", INT16_MAX, INT16_MAX, INT16_MAX, INT16_MAX);
       //    printf("%X\n", INT16_MAX);
+      // ft_printf("%X\n", INT16_MAX);
       //    printf("%#-10X\t%#x\t%#-15.10X\n", INT16_MAX, INT16_MAX, INT16_MAX);
       // ft_printf("%#-10X\t%#x\t%#-15.10X\n", INT16_MAX, INT16_MAX, INT16_MAX);
       //    printf("%#15X\t%.10X\n", INT16_MAX, INT16_MAX);
       // ft_printf("%#15X\t%.10X\n", INT16_MAX, INT16_MAX);
 
-      //      printf("%o\n", INT16_MAX);
+        
+      //    printf("\n%o\n", INT16_MAX);
       //   ft_printf("%o\n", INT16_MAX);
       //    printf("\n%#o\n", INT16_MAX);
       //   ft_printf("%#o\n", INT16_MAX);

@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 14:48:52 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/28 18:38:30 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/30 00:49:17 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ typedef struct			s_param
 
 # define PRINT_ERROR	(-1)
 # define SPECIFIER		"cCsSpdDioOuUxXf"
-# define FLAGS			"+- #0."
+# define FLAGS			"+- #0"
 # define PREFIX 		"0x"
+# define PREFIX_UP 		"0X"
 # define SPEC_LEN		(ft_strlen(SPECIFIER))
 
 /*
@@ -96,8 +97,7 @@ void					print_flags(char ch1, int n1, char ch2, \
 									int n2, char ch3, int n3);
 void					print_flags2(char *ch1, int n1, char *ch2, int n2, \
 									char *ch3, int n3);
-int						get_hexadecimal(uintmax_t hex, char **sptr, \
-										t_param *param);
+int						get_hex_octal(uintmax_t hex, char **sptr, char spec);
 char					*get_bin(unsigned char c);
 int						get_exponent(char *exp, int len, int correct);
 int						*get_mantisa(char *mant, int *len, int *bin_dec);

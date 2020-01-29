@@ -6,39 +6,53 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 17:51:39 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/14 15:54:18 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/30 00:54:59 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	unsigned_octal(uintmax_t hex, t_param *prm)
+static void	print_space_octal(t_param *pm, int *len, int zero)
 {
-	int len;
-	char *str;
-	int hash;
-	int len_sp;
+	int width;
 
-	hash = prm->t_flag.hash == '#' ?	1 : 0;
-	len = get_hexadecimal(hex, &str, prm);
-	len_sp = prm->width - len - hash - \
-		(prm->precision > 0 ? prm->precision - len - hash : 0);
-	if (!prm->t_flag.minus && (prm->width || prm->t_flag.dot))
-    {
-        if (prm->t_flag.zero && !prm->t_flag.dot)
-			print_flags2("0", hash, "0", len_sp, 0, 0);
-        else if (prm->t_flag.dot)
-            print_flags2(" ", len_sp, "0", hash, "0", prm->precision - len - hash);
-        else
-            print_flags2(" ", len_sp, "0", hash, 0, 0);
-    }
-	else if (hash > 0 || prm->t_flag.dot)
-		print_flags2("0", hash, "0", prm->precision - len - hash, 0, 0);
-    ft_putstr(str);
-    if (prm->t_flag.minus)
-        print_flags2(0, 0, 0, 0, " ", len_sp);
-    free(str);
-	return(len);
+	width = pm->width - (*len + zero);
+	width = (width < 0) ? 0 : width;
+	*len += width + zero;
+	if (!pm->t_flag.minus)
+	{
+		while (!pm->t_flag.zero && width-- > 0)
+			ft_putchar(32);
+		while (pm->t_flag.zero && width-- > 0)
+			ft_putchar(48);
+		while (zero-- > 0)
+			ft_putchar(48);
+	}
+	else if (pm->t_flag.minus)
+		while (width-- > 0)
+			ft_putchar(32);
+}
+
+static int	print_o(uintmax_t hex, t_param *pm)
+{
+	int		len;
+	char	*str;
+	int		zero;
+	int		hash;
+
+	hash = pm->t_flag.hash == '#' ? 1 : 0;
+	len = get_hex_octal(hex, &str, pm->specifier);
+	zero = hash + (pm->precision > len ? pm->precision - len - hash : 0);
+	if (!pm->t_flag.minus)
+		print_space_octal(pm, &len, zero);
+	hash = 0;
+	while (pm->t_flag.minus && hash++ < zero)
+		ft_putchar(48);
+	ft_putstr(str);
+	if (pm->t_flag.minus)
+		print_space_octal(pm, &len, zero);
+	free(str);
+	return (len);
 }
 
 int			print_octal(t_param *param, va_list args)
@@ -47,14 +61,14 @@ int			print_octal(t_param *param, va_list args)
 
 	len = 0;
 	if (param->modifier & H)
-		len = unsigned_octal((unsigned short)va_arg(args, unsigned int), param);
+		len = print_o((unsigned short)va_arg(args, unsigned int), param);
 	else if (param->modifier & HH)
-		len = unsigned_octal((unsigned char)va_arg(args, unsigned int), param);
+		len = print_o((unsigned char)va_arg(args, unsigned int), param);
 	else if (param->modifier & L)
-		len = unsigned_octal(va_arg(args, unsigned long), param);
+		len = print_o(va_arg(args, unsigned long), param);
 	else if (param->modifier & LL)
-		len = unsigned_octal(va_arg(args, unsigned long long), param);
+		len = print_o(va_arg(args, unsigned long long), param);
 	else
-		len = unsigned_octal(va_arg(args, unsigned int), param);
+		len = print_o(va_arg(args, unsigned int), param);
 	return (len);
 }

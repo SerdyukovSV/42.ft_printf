@@ -5,16 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gartanis <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/26 16:24:07 by gartanis          #+#    #+#             */
-/*   Updated: 2019/12/26 16:24:17 by gartanis         ###   ########.fr       */
+/*   Created: 2020/01/29 20:43:05 by gartanis          #+#    #+#             */
+/*   Updated: 2020/01/29 20:45:46 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int		print_printf(char specif, t_param *param, va_list args)
+static int	print_printf(char specif, t_param *param, va_list args)
 {
-	// printf("print_printf\n"); //////////////////////////////////////////
 	int ret;
 
 	ret = 0;
@@ -32,38 +31,34 @@ static int		print_printf(char specif, t_param *param, va_list args)
 		ret = print_octal(param, args);
 	else if (specif == 'f')
 		ret = printf_float(args, param);
-	/*
-	else
-		ret = print_no_specifier(); */
 	return (ret);
 }
 
-static	int		print_stdout(const char *pf[], va_list args)
+static int	print_stdout(const char *pf[], va_list args)
 {
-	// printf("print_stdout\n"); //////////////////////////////////////////
-	t_param param;
+	t_param	param;
 	int		ret;
 
-	param.t_flag.plus   = 0;
-	param.t_flag.minus  = 0;
-	param.t_flag.space  = 0;
-	param.t_flag.zero   = 0;
-	param.t_flag.hash   = 0;
-	param.width         = 0;
-	param.precision     = 0;
-	param.specifier     = 0;
-	param.t_flag.dot	= 0;
-	param.modifier		= 0;
+	param.t_flag.plus = 0;
+	param.t_flag.minus = 0;
+	param.t_flag.space = 0;
+	param.t_flag.zero = 0;
+	param.t_flag.hash = 0;
+	param.width = 0;
+	param.precision = 0;
+	param.specifier = 0;
+	param.t_flag.dot = 0;
+	param.modifier = 0;
 	if (!(*pf))
-        return (PRINT_ERROR);
-    else if ((pars_specifier(pf, &param)) != PRINT_ERROR)
-		return(print_printf(param.specifier, &param, args));
+		return (PRINT_ERROR);
+	else if ((pars_specifier(pf, &param)) != PRINT_ERROR)
+		return (print_printf(param.specifier, &param, args));
 	return (print_percent(pf));
 }
 
-int		ft_printf(const char *format, ...)
+int			ft_printf(const char *format, ...)
 {
-	va_list args;
+	va_list	args;
 	int		len_fm;
 	int		len_arg;
 

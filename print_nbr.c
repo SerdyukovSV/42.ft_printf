@@ -73,11 +73,9 @@ int print_decimal(t_param *param, va_list args)
     int len;
 
     len = 0;
-    if (param->specifier == 'd' || param->specifier == 'D' || param->specifier == 'i')
+    if (param->specifier == 'd' || param->specifier == 'i')
         len = signed_nbr(param, args);
-    else if (param->specifier == 'u' || param->specifier == 'U')
+    else if (param->specifier == 'u')
         len = unsigned_nbr(param, args);
-    else if (param->specifier == 'f')
-        ;
     return (len);    
 }

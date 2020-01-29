@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 17:22:15 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/28 20:25:43 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/29 20:25:20 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,28 @@ static int	get_flag(char flag, t_param *param)
 	(flag == ' ') ? (param->t_flag.space = ' ') : 0;
 	(flag == '0') ? (param->t_flag.zero = '0') : 0;
 	(flag == '#') ? (param->t_flag.hash = '#') : 0;
-	return(flag == '+' || flag == '-' || flag == ' ' \
+	return (flag == '+' || flag == '-' || flag == ' ' \
 		|| flag == '0' || flag == '#');
 }
 
 static int	get_width(const char **width, t_param *param)
 {
-	// printf("get_width\n"); //////////////////////////////////////////
-	int ret;
-	const char *nbr;
+	int			ret;
+	const char	*nbr;
 
 	ret = 0;
 	nbr = *width;
 	if ((param->width = ft_atoi(nbr)) > 0)
 		while (ft_isdigit(nbr[ret]))
 			ret += 1;
-	// printf("param->width = %d\n", param->width); //////////////////////////////////////////
 	return (ret);
 }
 
 static int	get_precision(const char **precis, t_param *param)
 {
-	// printf("get_precision\n"); //////////////////////////////////////////
-	int ret;
-	const char *nbr;
-	int count;
+	int			ret;
+	const char	*nbr;
+	int			count;
 
 	ret = 0;
 	count = 0;
@@ -56,15 +53,14 @@ static int	get_precision(const char **precis, t_param *param)
 		ret += count;
 		param->t_flag.dot = DOT;
 		param->precision = ft_atoi(nbr);
-	}			
+	}
 	return (ret);
 }
 
 static int	get_modifier(const char **modif, t_param *param)
 {
-	// printf("get_modifier\n"); //////////////////////////////////////////
-	int i;
-	const char *ptr;
+	int			i;
+	const char	*ptr;
 
 	i = 0;
 	ptr = *modif;
@@ -86,12 +82,11 @@ static int	get_modifier(const char **modif, t_param *param)
 	return (i);
 }
 
-int	get_param(const char **pf, t_param *param)
+int			get_param(const char **pf, t_param *param)
 {
-	// printf("get_param\n"); //////////////////////////////////////////
 	int ret;
 
-    ret = 0;
+	ret = 0;
 	while (get_flag(**pf, param))
 		*pf += 1;
 	if ((ret = get_width(pf, param)))

@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 16:16:44 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/11 21:11:53 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/29 21:12:39 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,18 @@ int			print_percent(const char **pf)
 
 static int	check_specifier(char *dspecif, const char **pf, t_param *param)
 {
-	// printf("check_specifier\n"); //////////////////////////////////////////
-	int i;
-	char *pdsp;
-	char *flags;
-	const char *cp;
+	int			i;
+	char		*pdsp;
+	const char	*cp;
 
 	i = 0;
 	cp = *pf;
 	while (*cp)
 	{
 		pdsp = dspecif;
-		flags = "+- #0";
 		if (*cp == PERCENT)
 			return (0);
-		while (ft_strchr(flags, *cp))
+		while (ft_strchr(FLAGS, *cp))
 			cp += 1;
 		while (ft_isdigit(*cp) || *cp == DOT)
 			cp += 1;
@@ -66,12 +63,10 @@ static int	check_specifier(char *dspecif, const char **pf, t_param *param)
 
 int			pars_specifier(const char **pf, t_param *param)
 {
-	// printf("\npars_specifier\n"); //////////////////////////////////////////
-	int ret;
-	char *dspecif;
+	int		ret;
+	char	*dspecif;
 
 	ret = PRINT_ERROR;
-
 	dspecif = ft_strdup(SPECIFIER);
 	if ((check_specifier(dspecif, pf, param)))
 	{

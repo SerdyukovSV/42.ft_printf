@@ -6,125 +6,121 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 17:51:39 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/13 19:55:06 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/30 01:39:32 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	print_flags2(char *ch1, int n1, char *ch2, int n2, char *ch3, int n3)
+static void	print_space_hex(t_param *pm, int *len, int zero, char hash)
 {
-    int i;
+	int width;
 
-    i = -1;
-    while (ch1 && ++i < n1)
-        ft_putchar(ft_strlen(ch1) > 1 ? ch1[i] : *ch1);
-    i = -1;
-    while (ch2 && ++i < n2)
-		ft_putchar(ft_strlen(ch2) > 1 ? ch2[i] : *ch2);
-    i = -1;
-    while (ch3 && ++i < n3)
-		ft_putchar(ft_strlen(ch3) > 1 ? ch3[i] : *ch3);
+	width = pm->width - (*len + zero + (hash ? 2 : 0));
+	width = (width < 0) ? 0 : width;
+	*len += width + zero;
+	if (!pm->t_flag.minus)
+	{
+		while (!pm->t_flag.zero && width-- > 0)
+			ft_putchar(32);
+		if (hash)
+			ft_putstr((pm->specifier == 'x') ? "0x" : "0X");
+		while (pm->t_flag.zero && !zero && width-- > 0)
+			ft_putchar(48);
+		while (zero-- > 0)
+			ft_putchar(48);
+	}
+	else if (pm->t_flag.minus)
+		while (width-- > 0)
+			ft_putchar(32);
 }
 
-int	get_hexadecimal(uintmax_t hex, char **sptr, t_param *param)
+int			get_hex_octal(uintmax_t hex, char **sptr, char spec)
 {
 	char		*str;
 	int			i;
 	uintmax_t	cphex;
 
-	i = 0;
+	i = (spec == 'p') ? 3 : 1;
 	cphex = hex;
-	while (cphex /= (param->specifier == 'o' ? 8 : 0x10))
+	while (cphex /= (spec == 'o' ? 8 : 0x10))
 		i++;
-	i += param->specifier == 'p' ? 3 : 1;
 	if (!(str = (char *)malloc(sizeof(char) * i)))
 		return (-1);
 	str[i] = '\0';
 	while (i-- >= 0)
 	{
-		if (hex)
-		{
-			if (param->specifier == 'p' || param->specifier == 'x')
-				str[i] = "0123456789abcdef"[hex % 0x10];
-			else if (param->specifier == 'X')
-				str[i] = "0123456789ABCDEF"[hex % 0x10];
-			else if (param->specifier == 'o')
-				str[i] = "012345678"[hex % 8];
-			hex /= (param->specifier == 'o' ? 8 : 0x10);
-		}
-		else if (param->specifier == 'p')
+		if (hex && (spec == 'p' || spec == 'x'))
+			str[i] = "0123456789abcdef"[hex % 0x10];
+		else if (hex && spec == 'X')
+			str[i] = "0123456789ABCDEF"[hex % 0x10];
+		else if (hex && spec == 'o')
+			str[i] = "012345678"[hex % 8];
+		else if (!hex && spec == 'p')
 			str[i] = PREFIX[i];
+		hex /= (spec == 'o' ? 8 : 0x10);
 	}
 	*sptr = str;
 	return (ft_strlen(str));
 }
 
-static int	unsigned_hex(uintmax_t hex, t_param *prm)
+static int	print_hex(uintmax_t hex, t_param *pm)
 {
-	int len;
-	char *str;
-	int hash;
-	int len_sp;
+	int		len;
+	char	*str;
+	int		count;
+	int		zero;
 
-	hash = prm->t_flag.hash == '#' ?	2 : 0;
-	len = get_hexadecimal(hex, &str, prm);
-	len_sp = prm->width - len - hash - \
-		(prm->precision > 0 ? prm->precision - len : 0);
-	if (!prm->t_flag.minus && (prm->width || prm->t_flag.dot))
-    {
-        if (prm->t_flag.zero && !prm->t_flag.dot)
-			print_flags2(prm->specifier == 'X' ? "0X" : "0x", hash, "0", len_sp, 0, 0);
-        else if (prm->t_flag.dot)
-            print_flags2(" ", len_sp, prm->specifier == 'X' ? "0X" : \
-				PREFIX, hash, "0", prm->precision - len);
-        else
-            print_flags2(" ", len_sp, prm->specifier == 'X' ? "0X" : "0x", hash, 0, 0);
-    }
-	else if (hash > 0 || prm->t_flag.dot)
-		print_flags2(prm->specifier == 'X' ? "0X" : PREFIX, \
-			hash, "0", prm->precision - len, 0, 0);
-    ft_putstr(str);
-    if (prm->t_flag.minus)
-        print_flags2(0, 0, 0, 0, " ", len_sp);
-    free(str);
-	return(len);
+	len = get_hex_octal(hex, &str, pm->specifier);
+	zero = (pm->precision > len ? pm->precision - len : 0);
+	if (!pm->t_flag.minus)
+		print_space_hex(pm, &len, zero, pm->t_flag.hash);
+	if (pm->t_flag.hash && pm->t_flag.minus)
+		ft_putstr((pm->specifier == 'x') ? "0x" : "0X");
+	count = 0;
+	while (pm->t_flag.minus && count++ < zero)
+		ft_putchar(48);
+	ft_putstr(str);
+	if (pm->t_flag.minus)
+		print_space_hex(pm, &len, zero, pm->t_flag.hash);
+	free(str);
+	return (len);
 }
 
-static int	print_pointer(intptr_t ptr, t_param *param)
+static int	print_pointer(intptr_t ptr, t_param *pm)
 {
 	char		*sptr;
 	int			len;
 
 	if (ptr < 0)
 		return (PRINT_ERROR);
-	if ((len = get_hexadecimal(ptr, &sptr, param)) == PRINT_ERROR)
+	if ((len = get_hex_octal(ptr, &sptr, pm->specifier)) == PRINT_ERROR)
 		return (len);
-	if (param->width && !(param->t_flag.minus == MINUS))
-		print_space(param->width - len, SPACE);
+	if (pm->width && !(pm->t_flag.minus == MINUS))
+		print_space(pm->width - len, SPACE);
 	ft_putstr(sptr);
-    free(sptr);
-	if (param->width && param->t_flag.minus == MINUS)
-		print_space(param->width - len, SPACE);
+	free(sptr);
+	if (pm->width && pm->t_flag.minus == MINUS)
+		print_space(pm->width - len, SPACE);
 	return (len);
 }
 
-int			print_hexadecimal(t_param *param, va_list args)
+int			print_hexadecimal(t_param *pm, va_list args)
 {
 	int len;
 
 	len = 0;
-	if (param->modifier & H)
-		len = unsigned_hex((unsigned short)va_arg(args, unsigned int), param);
-	else if (param->modifier & HH)
-		len = unsigned_hex((unsigned char)va_arg(args, unsigned int), param);
-	else if (param->modifier & L)
-		len = unsigned_hex(va_arg(args, unsigned long), param);
-	else if (param->modifier & LL)
-		len = unsigned_hex(va_arg(args, unsigned long long), param);
-	else if (param->specifier == 'p')
-		len = print_pointer(va_arg(args, intptr_t), param);
+	if (pm->modifier & H)
+		len = print_hex((unsigned short)va_arg(args, unsigned int), pm);
+	else if (pm->modifier & HH)
+		len = print_hex((unsigned char)va_arg(args, unsigned int), pm);
+	else if (pm->modifier & L)
+		len = print_hex(va_arg(args, unsigned long), pm);
+	else if (pm->modifier & LL)
+		len = print_hex(va_arg(args, unsigned long long), pm);
+	else if (pm->specifier == 'p')
+		len = print_pointer(va_arg(args, intptr_t), pm);
 	else
-		len = unsigned_hex(va_arg(args, unsigned int), param);
+		len = print_hex(va_arg(args, unsigned int), pm);
 	return (len);
 }
