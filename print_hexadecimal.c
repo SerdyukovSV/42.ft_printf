@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 17:51:39 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/30 01:39:32 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/30 19:49:40 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	print_space_hex(t_param *pm, int *len, int zero, char hash)
 
 	width = pm->width - (*len + zero + (hash ? 2 : 0));
 	width = (width < 0) ? 0 : width;
-	*len += width + zero;
+	*len += width + zero + (hash ? 2 : 0);
 	if (!pm->t_flag.minus)
 	{
 		while (!pm->t_flag.zero && width-- > 0)

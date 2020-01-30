@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 15:03:05 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/30 01:43:04 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/30 19:25:09 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,24 +85,28 @@ static char	*printf_lf(long double args, int len, t_param *param)
 
 static void	print_space_float(t_param *pm, int *len, char sign, char space)
 {
-	int i;
+	int width;
 
-	space = ((space && !pm->width) || (space && pm->t_flag.zero)) ? ' ' : 0;
-	i = pm->width - *len - (!sign ? 0 : 1) - ((space && !sign) ? 1 : 0);
-	i = (i < 0) ? 0 : i;
-	*len += i;
+	width = pm->width - (*len + (sign ? 1 : 0)) - \
+		(pm->t_flag.zero && space ? 1 : 0);
+	width = (width < 0) ? 0 : width;
+	((width > 0 && !pm->t_flag.zero) || sign) ? space = 0 : 0;
+	*len += width + (space ? 1 : 0) + (sign ? 1 : 0);
 	if (!pm->t_flag.minus)
 	{
-		while (!pm->t_flag.zero && i-- > 0)
+		while (!pm->t_flag.zero && width-- > 0)
 			ft_putchar(32);
 		if (space || sign)
 			ft_putchar(sign != 0 ? sign : space);
-		while (pm->t_flag.zero && i-- > 0)
+		while (pm->t_flag.zero && width-- > 0)
 			ft_putchar(48);
 	}
 	else if (pm->t_flag.minus)
-		while (i-- > 0)
+	{
+		(pm->t_flag.space) ? (width -= 1) : 0;
+		while (width-- > 0)
 			ft_putchar(32);
+	}
 }
 
 int			printf_float(va_list args, t_param *pm)
@@ -119,10 +123,11 @@ int			printf_float(va_list args, t_param *pm)
 	len = -1;
 	str = rounding_float(str, pm->precision, &len);
 	if (!pm->t_flag.minus)
-		print_space_2(pm, &len, pm->t_flag.plus, pm->t_flag.space);
-	(pm->t_flag.minus) ? ft_putchar(pm->t_flag.plus) : 0;
+		print_space_float(pm, &len, pm->t_flag.plus, pm->t_flag.space);
+	if (pm->t_flag.minus)
+		ft_putchar(pm->t_flag.plus ? pm->t_flag.plus : pm->t_flag.space);
 	ft_putstr(str);
 	if (pm->t_flag.minus)
-		print_space_2(pm, &len, pm->t_flag.plus, pm->t_flag.space);
+		print_space_float(pm, &len, pm->t_flag.plus, pm->t_flag.space);
 	return (len);
 }

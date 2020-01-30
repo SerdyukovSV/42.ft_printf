@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gartanis <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 20:43:05 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/29 20:45:46 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/30 16:19:51 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,27 +59,26 @@ static int	print_stdout(const char *pf[], va_list args)
 int			ft_printf(const char *format, ...)
 {
 	va_list	args;
-	int		len_fm;
-	int		len_arg;
+	int		len;
 
-	len_fm = 0;
-	len_arg = 0;
+	len = 0;
 	va_start(args, format);
 	while (*format)
 	{
 		if (*format == '%')
 		{
 			format++;
-			if ((len_arg = print_stdout(&format, args)) == PRINT_ERROR)
+			if ((len += print_stdout(&format, args)) == PRINT_ERROR)
 				break ;
+			// len_fm += len_arg;
 		}
 		else
 		{
 			ft_putchar(*format);
 			format++;
-			len_fm++;
+			len++;
 		}
 	}
 	va_end(args);
-	return (len_fm + len_arg);
+	return (len);
 }
