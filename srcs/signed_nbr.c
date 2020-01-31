@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 16:38:52 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/31 01:23:42 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/31 21:26:10 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static char	*nbr_conversion(intmax_t nbr, int *len)
 	char		*result;
 
 	k = nbr;
-	i = 0;
+	i = (nbr == 0) ? 1 : 0;
 	while (k)
 	{
 		k /= 10;
@@ -58,6 +58,7 @@ static char	*nbr_conversion(intmax_t nbr, int *len)
 		nbr /= 10;
 		i--;
 	}
+	(nbr == 0) ? result[i] = '0' : 0;
 	return (result);
 }
 

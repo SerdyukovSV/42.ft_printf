@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 23:04:43 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/31 00:31:57 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/31 20:24:30 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,6 @@ int						ft_printf(const char *format, ...);
 int						pars_specifier(const char **specif, t_param *param);
 int						get_param(const char **pf, t_param *param);
 char					verif_sign(t_param *param, intmax_t nbr);
-void					print_flags(char ch1, int n1, char ch2, \
-									int n2, char ch3, int n3);
-void					print_flags2(char *ch1, int n1, char *ch2, int n2, \
-									char *ch3, int n3);
-int						get_hex_octal(uintmax_t hex, char **sptr, char spec);
 char					*get_bin(unsigned char c);
 int						get_exponent(char *exp, int len, int correct);
 int						*get_mantisa(char *mant, int *len, int *bin_dec);
@@ -96,7 +91,7 @@ int						*multiply_bigint(int *mant, int exp, int *len);
 */
 
 void					print_space(int offset, char flag);
-int						print_percent(const char **pf);
+int						find_percent(const char **pf);
 int						print_char(t_param *param, va_list args);
 int						print_string(t_param *param, va_list args);
 int						print_hexadecimal(t_param *param, va_list args);
@@ -105,5 +100,6 @@ int						print_decimal(t_param *param, va_list args);
 int						print_signed(intmax_t nbr, t_param *param);
 int						print_unsigned(uintmax_t nbr, t_param *param);
 int						printf_float(va_list args, t_param *param);
+int						print_no_specifier(t_param *pm, const char **pf);
 
 #endif

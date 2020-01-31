@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 17:51:39 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/31 00:27:40 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/31 21:23:21 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,32 @@ static void	print_space_octal(t_param *pm, int *len, int zero)
 			ft_putchar(32);
 }
 
+static char	*get_octal(uintmax_t nbr, t_param *pm)
+{
+	char		*str;
+	int			i;
+	uintmax_t	cp;
+	int			dot;
+
+	cp = nbr;
+	dot = (pm->t_flag.dot && pm->precision == 0 && nbr == 0) ? 1 : 0;
+	i = (nbr == 0 && !dot) ? 1 : 0;
+	while (cp)
+	{
+		i++;
+		cp /= 8;
+	}
+	if (!(str = (char *)malloc(sizeof(char) * i + 1)))
+		return (0);
+	str[i] = '\0';
+	while (i-- > 0)
+	{
+		str[i] = "012345678"[nbr % 8];
+		nbr /= 8;
+	}
+	return (str);
+}
+
 static int	print_o(uintmax_t hex, t_param *pm)
 {
 	int		len;
@@ -41,7 +67,8 @@ static int	print_o(uintmax_t hex, t_param *pm)
 	int		hash;
 
 	hash = pm->t_flag.hash == '#' ? 1 : 0;
-	len = get_hex_octal(hex, &str, pm->specifier);
+	str = get_octal(hex, pm);
+	len = ft_strlen(str);
 	zero = hash + (pm->precision > len ? pm->precision - len - hash : 0);
 	if (!pm->t_flag.minus)
 		print_space_octal(pm, &len, zero);

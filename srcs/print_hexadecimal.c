@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 17:51:39 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/31 01:06:41 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/31 21:20:57 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,33 +35,34 @@ static void	print_space_hex(t_param *pm, int *len, int zero, char hash)
 			ft_putchar(32);
 }
 
-int			get_hex_octal(uintmax_t hex, char **sptr, char spec)
+static char	*get_hex(uintmax_t hex, char spec)
 {
 	char		*str;
 	int			i;
-	uintmax_t	cphex;
+	uintmax_t	cp;
 
-	i = (spec == 'p') ? 3 : 1;
-	cphex = hex;
-	while (cphex /= (spec == 'o' ? 8 : 0x10))
-		i++;
-	if (!(str = (char *)malloc(sizeof(char) * i)))
-		return (-1);
-	str[i] = '\0';
-	while (i-- >= 0)
+	cp = hex;
+	i = (hex == 0) ? 1 : 0;
+	while (cp)
 	{
-		if (hex && (spec == 'p' || spec == 'x'))
-			str[i] = "0123456789abcdef"[hex % 0x10];
-		else if (hex && spec == 'X')
-			str[i] = "0123456789ABCDEF"[hex % 0x10];
-		else if (hex && spec == 'o')
-			str[i] = "012345678"[hex % 8];
-		else if (!hex && spec == 'p')
-			str[i] = PREFIX[i];
-		hex /= (spec == 'o' ? 8 : 0x10);
+		i++;
+		cp /= 0x10;
 	}
-	*sptr = str;
-	return (ft_strlen(str));
+	cp = (spec == 'p') ? 2 : 0;
+	if (!(str = (char *)malloc(sizeof(char) * (i + cp + 1))))
+		return (0);
+	str[i + cp] = '\0';
+	while (i-- > 0)
+	{
+		if (spec == 'p' || spec == 'x')
+			str[i] = "0123456789abcdef"[hex % 0x10];
+		else if (spec == 'X')
+			str[i] = "0123456789ABCDEF"[hex % 0x10];
+		hex /= 0x10;
+	}
+	while (cp-- > 0 && spec == 'p')
+		str[cp] = PREFIX[cp];
+	return (str);
 }
 
 static int	print_hex(uintmax_t hex, t_param *pm)
@@ -71,11 +72,12 @@ static int	print_hex(uintmax_t hex, t_param *pm)
 	int		count;
 	int		zero;
 
-	len = get_hex_octal(hex, &str, pm->specifier);
+	str = get_hex(hex, pm->specifier);
+	len = ft_strlen(str);
 	zero = (pm->precision > len ? pm->precision - len : 0);
 	if (!pm->t_flag.minus)
-		print_space_hex(pm, &len, zero, pm->t_flag.hash);
-	if (pm->t_flag.hash && pm->t_flag.minus)
+		print_space_hex(pm, &len, zero, (hex != 0) ? pm->t_flag.hash : 0);
+	if (pm->t_flag.hash && (hex != 0) && pm->t_flag.minus)
 		ft_putstr((pm->specifier == 'x') ? "0x" : "0X");
 	count = 0;
 	while (pm->t_flag.minus && count++ < zero)
@@ -94,8 +96,8 @@ static int	print_pointer(intptr_t ptr, t_param *pm)
 
 	if (ptr < 0)
 		return (PRINT_ERROR);
-	if ((len = get_hex_octal(ptr, &sptr, pm->specifier)) == PRINT_ERROR)
-		return (len);
+	sptr = get_hex(ptr, pm->specifier);
+	len = ft_strlen(sptr);
 	if (pm->width && !(pm->t_flag.minus == MINUS))
 		print_space(pm->width - len, SPACE);
 	ft_putstr(sptr);

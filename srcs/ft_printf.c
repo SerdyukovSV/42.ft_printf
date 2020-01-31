@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 20:43:05 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/31 00:33:03 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/31 17:08:59 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	print_stdout(const char *pf[], va_list args)
 		return (PRINT_ERROR);
 	else if ((pars_specifier(pf, &param)) != PRINT_ERROR)
 		return (print_printf(param.specifier, &param, args));
-	return (print_percent(pf));
+	return (print_no_specifier(&param, pf));
 }
 
 int			ft_printf(const char *format, ...)

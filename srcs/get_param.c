@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 17:22:15 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/31 00:23:21 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/01/31 17:29:04 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,19 @@ static int	get_modifier(const char **modif, t_param *param)
 int			get_param(const char **pf, t_param *param)
 {
 	int ret;
+	int len;
 
 	ret = 0;
-	while (get_flag(**pf, param))
-		*pf += 1;
-	if ((ret = get_width(pf, param)))
-		*pf += ret;
-	if ((ret = get_precision(pf, param)))
-		*pf += ret;
-	if ((ret = get_modifier(pf, param)))
-		*pf += ret;
-	if (param->specifier)
-		*pf += 1;
-	return (ret);
+	len = 0;
+	while (get_flag(**pf, param) ? (*pf += 1) : 0)
+		len++;
+	if ((ret = get_width(pf, param)) ? (*pf += ret) : 0)
+		len++;
+	if ((ret = get_precision(pf, param)) ? (*pf += ret) : 0)
+		len++;
+	if ((ret = get_modifier(pf, param)) ? (*pf += ret) : 0)
+		len++;
+	if (param->specifier ? (*pf += 1) : 0)
+		len++;
+	return (len);
 }
