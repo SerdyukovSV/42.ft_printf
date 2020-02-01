@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 23:04:43 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/31 20:24:30 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/01 18:38:49 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int						*get_mantisa(char *mant, int *len, int *bin_dec);
 int						*sort_bigint(int *mant, int *len);
 int						*divide_bigint(int *mant, int exp, int *len);
 int						*multiply_bigint(int *mant, int exp, int *len);
+int						ft_unbrlen(uintmax_t nbr, int div);
 
 /*
 ** prototypes print function

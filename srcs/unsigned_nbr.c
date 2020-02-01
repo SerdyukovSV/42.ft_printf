@@ -6,11 +6,26 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 22:18:34 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/31 01:24:10 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/01 18:38:50 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
+
+int			ft_unbrlen(uintmax_t nbr, int div)
+{
+	unsigned int i;
+
+	i = 0;
+	if (nbr == 0)
+		return (1);
+	while (nbr != 0)
+	{
+		nbr /= div;
+		i++;
+	}
+	return (i);
+}
 
 static void	print_space_unsign(t_param *pm, int *len, int zero)
 {
@@ -35,24 +50,17 @@ static void	print_space_unsign(t_param *pm, int *len, int zero)
 static char	*unbr_conversion(uintmax_t nbr, int *len)
 {
 	int			i;
-	uintmax_t	k;
 	char		*result;
 
-	k = nbr;
-	i = 0;
-	while (k)
-	{
-		k /= 10;
-		i += 1;
-	}
+	i = ft_unbrlen(nbr, 10);
 	*len = i;
-	result = ft_memalloc(i);
-	result[i--] = '\0';
-	while (nbr)
+	if (!(result = ft_memalloc(i)))
+		return (0);
+	result[i] = '\0';
+	while (i-- > 0)
 	{
 		result[i] = (nbr % 10) + 48;
 		nbr /= 10;
-		i--;
 	}
 	return (result);
 }

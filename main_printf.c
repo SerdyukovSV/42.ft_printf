@@ -27,6 +27,9 @@ int main(void)
    int len;
    int len2;
 
+   char *succes  = GRN "SUCCESS" RESET;
+   char *fail  = RED "FAIL" RESET;
+
 int test;
 // file_checker tests
 //    len = ft_printf("%5%");
@@ -166,10 +169,45 @@ int test;
 //    printf("\n");
 //   len2 = printf("%hd", -32769);
 // printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? GRN "SUCCESS" RESET : RED "FAIL" RESET);
-len = ft_printf("%lld", -9223372036854775808);
+
+// len = ft_printf("%lld", -9223372036854775808);
+//    printf("\n");
+//   len2 = printf("%lld", -9223372036854775808);
+// printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
+// len = ft_printf("%-10.5d", 4242);
+//    printf("\n");
+//   len2 = printf("%-10.5d", 4242);
+// printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
+// len = ft_printf("@moulitest: %.d %.0d", 0, 0);
+//    printf("\n");
+//   len2 = printf("@moulitest: %.d %.0d", 0, 0);
+// printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
+// len = ft_printf("@moulitest: %5.d %5.0d", 0, 0);
+//    printf("\n");
+//   len2 = printf("@moulitest: %5.d %5.0d", 0, 0);
+// printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
+// len = ft_printf("%u", 0);
+//    printf("\n");
+//   len2 = printf("%u", 0);
+// printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
+// len = ft_printf("%u", 4294967296);
+//    printf("\n");
+//   len2 = printf("%u", 4294967296);
+// printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
+
+// len = ft_printf("@moulitest: %#.x %#.0x", 0, 0);
+//    printf("\n");
+//   len2 = printf("@moulitest: %#.x %#.0x", 0, 0);
+// printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
+// len = ft_printf("@moulitest: %.x %.0x", 0, 0);
+//    printf("\n");
+//   len2 = printf("@moulitest: %.x %.0x", 0, 0);
+// printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
+len = ft_printf("%jx", -4294967297);
    printf("\n");
-  len2 = printf("%lld", -9223372036854775808);
-printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? GRN "SUCCESS" RESET : RED "FAIL" RESET);
+  len2 = printf("%jx", -4294967297);
+printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
+
 
 
    // len2 = ft_printf("%-15.7s %% %-5c %-20p %% W%.s %c %p\n", str, c, &p, str2, c, p);
@@ -178,7 +216,6 @@ printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? GRN "SUCCESS" RESET : RE
    // printf("len %d | len2 %d\n", len, len2);
    //    printf("\n\n");
 
-   
 
 
    int i = -755;

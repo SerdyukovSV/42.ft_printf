@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 17:51:39 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/31 21:20:57 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/01 20:00:50 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	print_space_hex(t_param *pm, int *len, int zero, char hash)
 	width = pm->width - (*len + zero + (hash ? 2 : 0));
 	width = (width < 0) ? 0 : width;
 	*len += width + zero + (hash ? 2 : 0);
+	(pm->t_flag.dot == 1 && pm->width) ? width += 1 : 0;
 	if (!pm->t_flag.minus)
 	{
 		while (!pm->t_flag.zero && width-- > 0)
@@ -39,19 +40,13 @@ static char	*get_hex(uintmax_t hex, char spec)
 {
 	char		*str;
 	int			i;
-	uintmax_t	cp;
+	uintmax_t	k;
 
-	cp = hex;
-	i = (hex == 0) ? 1 : 0;
-	while (cp)
-	{
-		i++;
-		cp /= 0x10;
-	}
-	cp = (spec == 'p') ? 2 : 0;
-	if (!(str = (char *)malloc(sizeof(char) * (i + cp + 1))))
+	i = ft_unbrlen(hex, 0x10);
+	k = (spec == 'p') ? 2 : 0;
+	if (!(str = (char *)malloc(sizeof(char) * (i + k + 1))))
 		return (0);
-	str[i + cp] = '\0';
+	str[i + k] = '\0';
 	while (i-- > 0)
 	{
 		if (spec == 'p' || spec == 'x')
@@ -60,8 +55,8 @@ static char	*get_hex(uintmax_t hex, char spec)
 			str[i] = "0123456789ABCDEF"[hex % 0x10];
 		hex /= 0x10;
 	}
-	while (cp-- > 0 && spec == 'p')
-		str[cp] = PREFIX[cp];
+	while (k-- > 0 && spec == 'p')
+		str[k] = PREFIX[k];
 	return (str);
 }
 
@@ -71,7 +66,10 @@ static int	print_hex(uintmax_t hex, t_param *pm)
 	char	*str;
 	int		count;
 	int		zero;
+	int		dot;
 
+	dot = ((hex == 0) && pm->t_flag.dot && !pm->precision) ? 1 : 0;
+	dot ? pm->t_flag.dot = 1 : 0;
 	str = get_hex(hex, pm->specifier);
 	len = ft_strlen(str);
 	zero = (pm->precision > len ? pm->precision - len : 0);
@@ -82,9 +80,10 @@ static int	print_hex(uintmax_t hex, t_param *pm)
 	count = 0;
 	while (pm->t_flag.minus && count++ < zero)
 		ft_putchar(48);
-	ft_putstr(str);
+	ft_putstr((!dot) ? str : 0);
 	if (pm->t_flag.minus)
 		print_space_hex(pm, &len, zero, pm->t_flag.hash);
+	(dot && !pm->width) ? len = 0 : 0;
 	free(str);
 	return (len);
 }
