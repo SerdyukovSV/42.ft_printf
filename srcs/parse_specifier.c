@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 16:16:44 by gartanis          #+#    #+#             */
-/*   Updated: 2020/02/02 21:59:24 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/03 00:02:08 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int			pars_specifier(const char **pf, t_param *param)
 		if (ft_strchr(dspecif, **pf))
 		{
 			*pf += 1;
+			free(dspecif);
 			return (1);
 		}
 		while ((ret = get_param(pf, param)))

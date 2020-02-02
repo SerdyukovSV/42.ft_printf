@@ -15,14 +15,14 @@
 int main(void)
 {   
 
-    char *str = "adress pointer";
-    char *str2 = "adress variable";
-    char *str3 = "Nice day";
-    char c = ':';
+   //  char *str = "adress pointer";
+   //  char *str2 = "adress variable";
+   //  char *str3 = "Nice day";
+   //  char c = ':';
     
-    int aa = 5;
-    int *p = &aa;
-    intptr_t nb = sizeof(intptr_t);
+   //  int aa = 5;
+   //  int *p = &aa;
+   //  intptr_t nb = sizeof(intptr_t);
 
    int len;
    int len2;
@@ -261,9 +261,9 @@ int test;
 //    printf("\n");
 //   len2 = printf("%05c", 42);
 // printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
-len = ft_printf("%jd", -9223372036854775808);
+len = ft_printf("%.2s is a string", "this");
    printf("\n");
-  len2 = printf("%jd", -9223372036854775808);
+  len2 = printf("%.2s is a string", "this");
 printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
 
 

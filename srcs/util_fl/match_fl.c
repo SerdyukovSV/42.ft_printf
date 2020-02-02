@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 17:09:23 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/31 00:29:57 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/02 23:21:46 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static int	*shift_sort_bigint(int *src, int len, int count)
 	count = 0;
 	while (++count < (len))
 		tmp[k++] = (count == (len - 1)) ? 0 : src[count];
+	free(src);
 	return (tmp);
 }
 
@@ -66,6 +67,7 @@ static int	*shift_div_bigint(int *mant, int mod, int *len)
 	tmp[i - 1] = 2;
 	tmp[i] = mod;
 	*len += 1;
+	free(mant);
 	return (tmp);
 }
 

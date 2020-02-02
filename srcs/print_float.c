@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 15:03:05 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/31 01:27:58 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/03 00:16:35 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static char	*printf_f(double args, int len, t_param *param)
 	int				exp;
 	int				*bin_dec;
 	char			*str;
+	char			*tmp;
 	unsigned char	str_mem[len + 1];
 
 	bin_dec = NULL;
@@ -53,13 +54,19 @@ static char	*printf_f(double args, int len, t_param *param)
 		return (0);
 	ft_memcpy(str_mem, &args, len);
 	while (--len >= 0)
-		str = ft_strcat(str, get_bin(str_mem[len]));
+	{
+		tmp = get_bin(str_mem[len]);
+		str = ft_strcat(str, tmp);
+		free(tmp);
+	}
 	(*str == '1') ? param->t_flag.plus = '-' : 0;
 	exp = get_exponent(str + 1, 10, 1023);
-	bin_dec = get_mantisa(str + 12, &len, bin_dec);
+	bin_dec = get_mantisa(str + 12, &len);
+	free(str);
 	(exp >= 0) ? bin_dec = multiply_bigint(bin_dec, exp, &len) : 0;
 	(exp < 0) ? bin_dec = divide_bigint(bin_dec, exp, &len) : 0;
 	str = ft_dectostr(bin_dec, 0, len);
+	free(bin_dec);
 	return (str);
 }
 
@@ -68,6 +75,7 @@ static char	*printf_lf(long double args, int len, t_param *param)
 	int				exp;
 	int				*bin_dec;
 	char			*str;
+	char			*tmp;
 	unsigned char	str_mem[len + 1];
 
 	bin_dec = NULL;
@@ -75,13 +83,19 @@ static char	*printf_lf(long double args, int len, t_param *param)
 		return (0);
 	ft_memcpy(str_mem, &args, len);
 	while (--len >= 0)
-		str = ft_strcat(str, get_bin(str_mem[len]));
+	{
+		tmp = get_bin(str_mem[len]);
+		str = ft_strcat(str, tmp);
+		free(tmp);
+	}
 	(*str == '1') ? param->t_flag.plus = '-' : 0;
 	exp = get_exponent(str + 1, 14, 16383);
-	bin_dec = get_mantisa(str + 17, &len, bin_dec);
+	bin_dec = get_mantisa(str + 17, &len);
+	free(str);
 	(exp >= 0) ? bin_dec = multiply_bigint(bin_dec, exp, &len) : 0;
 	(exp < 0) ? bin_dec = divide_bigint(bin_dec, exp, &len) : 0;
 	str = ft_dectostr(bin_dec, 0, len);
+	free(bin_dec);
 	return (str);
 }
 
@@ -115,6 +129,7 @@ int			printf_float(va_list args, t_param *pm)
 {
 	int		len;
 	char	*str;
+	char	*tmp;
 
 	(pm->t_flag.dot != DOT) ? pm->precision = 6 : 0;
 	if (pm->modifier & UPP_L)
@@ -122,7 +137,9 @@ int			printf_float(va_list args, t_param *pm)
 	else
 		str = printf_f(va_arg(args, double), 8, pm);
 	len = -1;
-	str = rounding_float(str, pm->precision, &len);
+	tmp = rounding_float(str, pm->precision, &len);
+	free(str);
+	str = tmp;
 	if (!pm->t_flag.minus)
 		print_space_float(pm, &len, pm->t_flag.plus, pm->t_flag.space);
 	if (pm->t_flag.minus)
@@ -130,5 +147,6 @@ int			printf_float(va_list args, t_param *pm)
 	ft_putstr(str);
 	if (pm->t_flag.minus)
 		print_space_float(pm, &len, pm->t_flag.plus, pm->t_flag.space);
+	free(str);
 	return (len);
 }

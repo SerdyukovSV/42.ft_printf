@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 17:51:39 by gartanis          #+#    #+#             */
-/*   Updated: 2020/02/01 20:00:50 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/02 23:43:16 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,20 +90,20 @@ static int	print_hex(uintmax_t hex, t_param *pm)
 
 static int	print_pointer(intptr_t ptr, t_param *pm)
 {
-	char		*sptr;
+	char		*str;
 	int			len;
 
 	if (ptr < 0)
 		return (PRINT_ERROR);
-	sptr = get_hex(ptr, pm->specifier);
-	len = ft_strlen(sptr);
+	str = get_hex(ptr, pm->specifier);
+	len = ft_strlen(str);
 	if (pm->width && !(pm->t_flag.minus == MINUS))
 		print_space(pm->width - len, SPACE);
-	ft_putstr(sptr);
-	free(sptr);
+	ft_putstr(str);
 	if (pm->width && pm->t_flag.minus == MINUS)
 		print_space(pm->width - len, SPACE);
 	len += pm->width > len ? pm->width - len : 0;
+	free(str);
 	return (len);
 }
 

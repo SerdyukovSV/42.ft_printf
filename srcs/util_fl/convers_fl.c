@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:37:07 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/31 00:29:55 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/02 23:05:15 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,23 @@
 char				*get_bin(unsigned char c)
 {
 	int		i;
+	char	*str;
 	char	*tmp;
 
 	i = 0;
-	if (!(tmp = (char *)malloc(sizeof(char) * 9)))
+	if (!(str = (char *)malloc(sizeof(char) * 9)))
 		return (0);
 	while (c != 0)
 	{
-		tmp[i] = "01"[c % 2];
+		str[i] = "01"[c % 2];
 		c /= 2;
 		i++;
 	}
 	while (i != 8)
-		tmp[i++] = '0';
-	tmp[i] = '\0';
-	tmp = ft_strrev(tmp);
+		str[i++] = '0';
+	str[i] = '\0';
+	tmp = ft_strrev(str);
+	free(str);
 	return (tmp);
 }
 
@@ -65,31 +67,41 @@ static long double	*bintoflt_mant(char *mant, int *len)
 	return (res);
 }
 
-int					*get_mantisa(char *mant, int *len, int *bin_dec)
+static int			*flttodec(long double *src, int *dec, int len)
+{
+	int i;
+	int k;
+	int tmp;
+
+	dec[0] = 1;
+	dec[1] = 46;
+	i = -1;
+	while (++i < len)
+	{
+		k = 2;
+		while (src[i])
+		{
+			src[i] *= 10;
+			tmp = (int)src[i];
+			dec[k++] += tmp;
+			src[i] -= (long double)tmp;
+		}
+		dec = sort_bigint(dec, &k);
+	}
+	return (dec);
+}
+
+int					*get_mantisa(char *mant, int *len)
 {
 	int			i;
-	int			k;
-	int			tmp;
 	long double	*res;
+	int			*bin_dec;
 
 	res = bintoflt_mant(mant, &i);
 	if (!(bin_dec = (int *)malloc(sizeof(int) * (++i * -1) + 2)))
 		return (0);
-	bin_dec[0] = 1;
-	bin_dec[1] = 46;
 	*len = (i * -1) + 2;
-	i = -1;
-	while (++i < (*len - 2))
-	{
-		k = 2;
-		while (res[i])
-		{
-			res[i] *= 10;
-			tmp = (int)res[i];
-			bin_dec[k++] += tmp;
-			res[i] -= (long double)tmp;
-		}
-		bin_dec = sort_bigint(bin_dec, &k);
-	}
+	bin_dec = flttodec(res, bin_dec, (*len - 2));
+	free(res);
 	return (bin_dec);
 }

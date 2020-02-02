@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 23:04:43 by gartanis          #+#    #+#             */
-/*   Updated: 2020/02/02 16:32:12 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/02 23:02:30 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int						get_param(const char **pf, t_param *param);
 char					verif_sign(t_param *param, intmax_t nbr);
 char					*get_bin(unsigned char c);
 int						get_exponent(char *exp, int len, int correct);
-int						*get_mantisa(char *mant, int *len, int *bin_dec);
+int						*get_mantisa(char *mant, int *len);
 int						*sort_bigint(int *mant, int *len);
 int						*divide_bigint(int *mant, int exp, int *len);
 int						*multiply_bigint(int *mant, int exp, int *len);

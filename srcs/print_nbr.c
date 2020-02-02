@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_nbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gartanis <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 00:24:12 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/31 01:34:36 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/02 23:44:44 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	unsigned_nbr(t_param *param, va_list args)
 		len = print_unsigned((unsigned short)va_arg(args, unsigned int), param);
 	else if (param->modifier & HH)
 		len = print_unsigned((unsigned char)va_arg(args, unsigned int), param);
-	else if ((param->modifier & L) || (param->specifier == 'U'))
+	else if (param->modifier & L)
 		len = print_unsigned(va_arg(args, unsigned long), param);
 	else if (param->modifier & LL)
 		len = print_unsigned(va_arg(args, unsigned long long), param);
@@ -38,7 +38,7 @@ static int	signed_nbr(t_param *param, va_list args)
 		len = print_signed((short)va_arg(args, int), param);
 	else if (param->modifier & HH)
 		len = print_signed((char)va_arg(args, int), param);
-	else if ((param->modifier & L) || (param->specifier == 'D'))
+	else if (param->modifier & L)
 		len = print_signed(va_arg(args, long), param);
 	else if (param->modifier & LL)
 		len = print_signed(va_arg(args, long long), param);
