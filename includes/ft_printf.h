@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 23:04:43 by gartanis          #+#    #+#             */
-/*   Updated: 2020/02/01 18:38:49 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/02 16:32:12 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int						ft_unbrlen(uintmax_t nbr, int div);
 */
 
 void					print_space(int offset, char flag);
-int						find_percent(const char **pf);
+int						find_percent(const char **pf, t_param *pm);
 int						print_char(t_param *param, va_list args);
 int						print_string(t_param *param, va_list args);
 int						print_hexadecimal(t_param *param, va_list args);

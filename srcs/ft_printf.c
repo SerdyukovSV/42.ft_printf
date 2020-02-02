@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 20:43:05 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/31 17:08:59 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/02 21:46:05 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	print_stdout(const char *pf[], va_list args)
 	param.specifier = 0;
 	param.t_flag.dot = 0;
 	param.modifier = 0;
-	if (!(*pf))
+	if (!(**pf))
 		return (PRINT_ERROR);
 	else if ((pars_specifier(pf, &param)) != PRINT_ERROR)
 		return (print_printf(param.specifier, &param, args));
@@ -59,15 +59,17 @@ int			ft_printf(const char *format, ...)
 {
 	va_list	args;
 	int		len;
+	int		len_out;
 
 	len = 0;
 	va_start(args, format);
 	while (*format)
 	{
+		len_out = 0;
 		if (*format == '%')
 		{
 			format++;
-			if ((len += print_stdout(&format, args)) == PRINT_ERROR)
+			if ((len_out = print_stdout(&format, args)) == PRINT_ERROR)
 				break ;
 		}
 		else
@@ -76,6 +78,7 @@ int			ft_printf(const char *format, ...)
 			format++;
 			len++;
 		}
+		len += (len_out != -1) ? len_out : 0;
 	}
 	va_end(args);
 	return (len);

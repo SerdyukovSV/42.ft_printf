@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 18:32:58 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/31 01:48:05 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/02 16:14:53 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct		s_list
 size_t				ft_strlen(const char *s);
 int					ft_atoi(const char *str);
 int					ft_isdigit(int c);
+int					ft_isalpha(int c);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
 char				*ft_strcat(char *s1, const char *s2);
 char				*ft_strchr(const char *s, int c);

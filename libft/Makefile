@@ -6,7 +6,7 @@
 #    By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/12 22:24:34 by gartanis          #+#    #+#              #
-#    Updated: 2020/01/31 01:36:42 by gartanis         ###   ########.fr        #
+#    Updated: 2020/02/02 16:23:54 by gartanis         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ FILES		=	ft_strchr.c			\
 				ft_strlen.c			\
 				ft_atoi.c			\
 				ft_isdigit.c		\
+				ft_isalpha.c		\
 				ft_putchar.c		\
 				ft_putstr.c			\
 				ft_strcpy.c			\

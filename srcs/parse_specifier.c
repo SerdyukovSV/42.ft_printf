@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 16:16:44 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/31 17:13:23 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/02 21:59:24 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,43 +21,43 @@ void		print_space(int width, char flag)
 		ft_putchar(flag);
 }
 
-int			find_percent(const char **pf)
+int			find_percent(const char **pf, t_param *pm)
 {
-	const char	*tmp;
+	int			ret;
 
-	tmp = *pf;
-	while (*tmp != '%')
-		tmp += 1;
-	if (*tmp == '%')
+	while ((ret = get_param(pf, pm)))
+		*pf += ret;
+	while (**pf && **pf != '%' && !ft_isalpha(**pf))
+		*pf += 1;
+	if (**pf && **pf == '%')
 		return (1);
-	return (PRINT_ERROR);
+	return (0);
 }
 
 static int	check_specifier(char *dspecif, const char **pf, t_param *param)
 {
 	int			i;
-	char		*pdsp;
+	char		*dsp;
 	const char	*cp;
 
 	i = 0;
 	cp = *pf;
-	while (*cp)
+	dsp = dspecif;
+	while (*cp && !ft_strchr(dsp, *cp))
 	{
-		pdsp = dspecif;
-		if (*cp == PERCENT)
+		dsp = dspecif;
+		if (*cp && *cp == PERCENT)
 			return (0);
-		while (ft_strchr(FLAGS, *cp))
+		else if (*cp && (ft_strchr(FLAGS, *cp) || (ft_isdigit(*cp) || \
+				*cp == DOT) || ft_strchr("hlLjz", *cp)))
 			cp += 1;
-		while (ft_isdigit(*cp) || *cp == DOT)
-			cp += 1;
-		while (*cp == 'h' || *cp == 'l' || *cp == 'L')
-			cp += 1;
-		if (ft_strchr(pdsp, *cp))
-			break ;
 		else
 			return (0);
 	}
-	param->specifier = *cp;
+	if (*cp && ft_strchr(dsp, *cp))
+		param->specifier = *cp;
+	else
+		return (0);
 	return (1);
 }
 
@@ -75,7 +75,9 @@ int			pars_specifier(const char **pf, t_param *param)
 			*pf += 1;
 			return (1);
 		}
-		ret = get_param(pf, param);
+		while ((ret = get_param(pf, param)))
+			*pf += ret;
+		param->specifier ? *pf += 1 : 0;
 	}
 	free(dspecif);
 	return (ret);

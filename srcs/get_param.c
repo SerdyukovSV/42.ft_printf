@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 17:22:15 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/31 17:29:04 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/02 21:57:48 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ static int	get_width(const char **width, t_param *param)
 
 	ret = 0;
 	nbr = *width;
-	if ((param->width = ft_atoi(nbr)) > 0)
-		while (ft_isdigit(nbr[ret]))
-			ret += 1;
+	if (ft_isdigit(*nbr))
+		if ((param->width = ft_atoi(nbr)) > 0)
+			while (ft_isdigit(nbr[ret]))
+				ret += 1;
 	return (ret);
 }
 
@@ -79,25 +80,23 @@ static int	get_modifier(const char **modif, t_param *param)
 		param->modifier |= UPP_L;
 		i += 1;
 	}
+	else if (ptr[i] == 'j' || ptr[i] == 'z')
+		i += 1;
 	return (i);
 }
 
 int			get_param(const char **pf, t_param *param)
 {
 	int ret;
-	int len;
 
 	ret = 0;
-	len = 0;
-	while (get_flag(**pf, param) ? (*pf += 1) : 0)
-		len++;
-	if ((ret = get_width(pf, param)) ? (*pf += ret) : 0)
-		len++;
-	if ((ret = get_precision(pf, param)) ? (*pf += ret) : 0)
-		len++;
-	if ((ret = get_modifier(pf, param)) ? (*pf += ret) : 0)
-		len++;
-	if (param->specifier ? (*pf += 1) : 0)
-		len++;
-	return (len);
+	if ((ret = get_flag(**pf, param)))
+		return (ret);
+	else if ((ret = get_width(pf, param)))
+		return (ret);
+	else if ((ret = get_precision(pf, param)))
+		return (ret);
+	else if ((ret = get_modifier(pf, param)))
+		return (ret);
+	return (ret);
 }
