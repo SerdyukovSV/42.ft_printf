@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 22:18:34 by gartanis          #+#    #+#             */
-/*   Updated: 2020/02/02 23:53:18 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/03 01:30:57 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,9 @@ int			print_unsigned(uintmax_t nbr, t_param *pm)
 	int		count;
 	int		zero;
 	char	*str;
+	int		dot;
 
+	dot = ((nbr == 0) && pm->t_flag.dot && !pm->precision) ? 1 : 0;
 	str = unbr_conversion(nbr, &len);
 	zero = pm->precision > len ? pm->precision - len : 0;
 	if (!pm->t_flag.minus)
@@ -79,9 +81,10 @@ int			print_unsigned(uintmax_t nbr, t_param *pm)
 	count = 0;
 	while (pm->t_flag.minus && count++ < zero)
 		ft_putchar(48);
-	ft_putstr(str);
+	(!dot) ? ft_putstr(str) : 0;
 	if (pm->t_flag.minus)
 		print_space_unsign(pm, &len, zero);
+	(dot && !pm->width) ? len = 0 : 0;
 	free(str);
 	return (len);
 }

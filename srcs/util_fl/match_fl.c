@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 17:09:23 by gartanis          #+#    #+#             */
-/*   Updated: 2020/02/02 23:21:46 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/04 04:36:13 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int			*sort_bigint(int *mant, int *len)
 		{
 			mant = shift_sort_bigint(mant, *len, i);
 			*len += 1;
-			i = *len;
 		}
 	}
 	return (mant);

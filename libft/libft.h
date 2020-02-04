@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 18:32:58 by gartanis          #+#    #+#             */
-/*   Updated: 2020/02/02 16:14:53 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/04 04:22:48 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char				*ft_strdup(const char *s1);
 char				*ft_strncpy(char *dst, const char *src, size_t len);
 char				*ft_itoa(int n);
 void				*ft_memalloc(size_t size);
+void				*ft_imemset(void *b, int c, size_t len);
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);
 char				*ft_strrev(char *src);

@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 15:03:05 by gartanis          #+#    #+#             */
-/*   Updated: 2020/02/03 00:16:35 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/04 04:50:08 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static char	*printf_f(double args, int len, t_param *param)
 	char			*tmp;
 	unsigned char	str_mem[len + 1];
 
-	bin_dec = NULL;
 	if (!(str = (char *)malloc(sizeof(char) * 100)))
 		return (0);
 	ft_memcpy(str_mem, &args, len);
@@ -57,7 +56,7 @@ static char	*printf_f(double args, int len, t_param *param)
 	{
 		tmp = get_bin(str_mem[len]);
 		str = ft_strcat(str, tmp);
-		free(tmp);
+		// free(tmp);
 	}
 	(*str == '1') ? param->t_flag.plus = '-' : 0;
 	exp = get_exponent(str + 1, 10, 1023);
@@ -78,7 +77,6 @@ static char	*printf_lf(long double args, int len, t_param *param)
 	char			*tmp;
 	unsigned char	str_mem[len + 1];
 
-	bin_dec = NULL;
 	if (!(str = (char *)malloc(sizeof(char) * 100)))
 		return (0);
 	ft_memcpy(str_mem, &args, len);
@@ -86,7 +84,7 @@ static char	*printf_lf(long double args, int len, t_param *param)
 	{
 		tmp = get_bin(str_mem[len]);
 		str = ft_strcat(str, tmp);
-		free(tmp);
+		// free(tmp);
 	}
 	(*str == '1') ? param->t_flag.plus = '-' : 0;
 	exp = get_exponent(str + 1, 14, 16383);

@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_imemset.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/06 16:43:10 by gartanis          #+#    #+#             */
-/*   Updated: 2020/02/04 00:53:20 by gartanis         ###   ########.fr       */
+/*   Created: 2019/09/05 14:45:18 by gartanis          #+#    #+#             */
+/*   Updated: 2020/02/04 04:22:52 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+void	*ft_imemset(void *b, int c, size_t len)
 {
-	const char *i;
+	int *p;
 
-	i = s;
-	while (*s)
-		s++;
-	return (s - i);
+	if (len == 0)
+		return (b);
+	p = b;
+	while (len--)
+	{
+		*p = c;
+		if (len)
+			p++;
+	}
+	return (b);
 }

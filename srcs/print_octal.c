@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 17:51:39 by gartanis          #+#    #+#             */
-/*   Updated: 2020/01/31 21:23:21 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/03 14:50:42 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	print_o(uintmax_t hex, t_param *pm)
 	int		zero;
 	int		hash;
 
-	hash = pm->t_flag.hash == '#' ? 1 : 0;
+	hash = (pm->t_flag.hash == '#' && (hex > 0 || pm->t_flag.dot)) ? 1 : 0;
 	str = get_octal(hex, pm);
 	len = ft_strlen(str);
 	zero = hash + (pm->precision > len ? pm->precision - len - hash : 0);

@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 17:51:39 by gartanis          #+#    #+#             */
-/*   Updated: 2020/02/02 23:43:16 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/03 14:43:09 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,11 @@ static char	*get_hex(uintmax_t hex, char spec)
 {
 	char		*str;
 	int			i;
-	uintmax_t	k;
 
 	i = ft_unbrlen(hex, 0x10);
-	k = (spec == 'p') ? 2 : 0;
-	if (!(str = (char *)malloc(sizeof(char) * (i + k + 1))))
+	if (!(str = (char *)malloc(sizeof(char) * (i + 1))))
 		return (0);
-	str[i + k] = '\0';
+	str[i] = '\0';
 	while (i-- > 0)
 	{
 		if (spec == 'p' || spec == 'x')
@@ -55,8 +53,6 @@ static char	*get_hex(uintmax_t hex, char spec)
 			str[i] = "0123456789ABCDEF"[hex % 0x10];
 		hex /= 0x10;
 	}
-	while (k-- > 0 && spec == 'p')
-		str[k] = PREFIX[k];
 	return (str);
 }
 
@@ -92,16 +88,22 @@ static int	print_pointer(intptr_t ptr, t_param *pm)
 {
 	char		*str;
 	int			len;
+	int			dot;
 
 	if (ptr < 0)
 		return (PRINT_ERROR);
+	dot = ((ptr == 0) && pm->t_flag.dot && !pm->precision) ? 1 : 0;
 	str = get_hex(ptr, pm->specifier);
 	len = ft_strlen(str);
 	if (pm->width && !(pm->t_flag.minus == MINUS))
-		print_space(pm->width - len, SPACE);
-	ft_putstr(str);
+		print_space(pm->width - len - 2, SPACE);
+	ft_putstr("0x");
+	(pm->precision) ? print_space(pm->precision - len, ZERO) : 0;
+	(!dot) ? ft_putstr(str) : 0;
 	if (pm->width && pm->t_flag.minus == MINUS)
-		print_space(pm->width - len, SPACE);
+		print_space(pm->width - len - 2, SPACE);
+	len += pm->precision > len ? pm->precision - len : 0;
+	len += (!dot) ? 2 : 1;
 	len += pm->width > len ? pm->width - len : 0;
 	free(str);
 	return (len);

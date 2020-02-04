@@ -261,11 +261,66 @@ int test;
 //    printf("\n");
 //   len2 = printf("%05c", 42);
 // printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
-len = ft_printf("%.2s is a string", "this");
-   printf("\n");
-  len2 = printf("%.2s is a string", "this");
-printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
+// int a;
+// len = ft_printf("%ld%ld", 0l, 42l);
+//    printf("\n");
+//   len2 = printf("%ld%ld", 0l, 42l);
+// printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
 
+// len = ft_printf("{% 03d}", 0);
+//    printf("\n");
+//   len2 = printf("{% 03d}", 0);
+// printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
+
+// len = ft_printf("{%+03d}", 0);
+//    printf("\n");
+//   len2 = printf("{%+03d}", 0);
+// printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
+
+// len = ft_printf("{%0-3d}", 0);
+//    printf("\n");
+//   len2 = printf("{%0-3d}", 0);
+// printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
+
+// len = ft_printf("{%03.2d}", 0);
+//    printf("\n");
+//   len2 = printf("{%03.2d}", 0);
+// printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
+
+// len = ft_printf("%.5p", 0);
+//    printf("\n");
+//   len2 = printf("%.5p", 0);
+// printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
+
+// len = ft_printf("%2.9p", 1234);
+//    printf("\n");
+//   len2 = printf("%2.9p", 1234);
+// printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
+
+// len = ft_printf("{%5p}", 0);
+//    printf("\n");
+//   len2 = printf("{%5p}", 0);
+// printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
+
+// len = ft_printf("%.0p, %.p", 0, 0);
+//    printf("\n");
+//   len2 = printf("%.0p, %.p", 0, 0);
+// printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
+
+// len = ft_printf("%#.o, %#.0o", 0, 0);
+//    printf("\n");
+//   len2 = printf("%#.o, %#.0o", 0, 0);
+// printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
+
+// len = ft_printf("%#o", 0);
+//    printf("\n");
+//   len2 = printf("%#o", 0);
+// printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
+
+// len = ft_printf("{%f}{%lf}{%Lf}", 1444565444646.6465424242242, 1444565444646.6465424242242, 1444565444646.6465424242242);
+//    printf("\n");
+//   len2 = printf("{%f}{%lf}{%Lf}", 1444565444646.6465424242242, 1444565444646.6465424242242, 1444565444646.6465424242242);
+// printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
 
 
 
@@ -287,13 +342,13 @@ printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
 
    int i = -755;
    int i2 = 755;
-   // float a = 0.42;
-   // float a2 = -0.42;
-   // float f = __FLT_MAX__;
-   // float f2 = __FLT_MIN__;
-   // double d = __DBL_MAX__;
-   // double d2 = __DBL_MIN__;
-   // long double dl = __LDBL_MAX__;
+   float a = 0.42;
+   float a2 = -0.42;
+   float f = __FLT_MAX__;
+   float f2 = __FLT_MIN__;
+   double d = __DBL_MAX__;
+   double d2 = __DBL_MIN__;
+   long double dl = __LDBL_MAX__;
    // long double dl2 = __LDBL_MIN__;
 
    
@@ -302,7 +357,7 @@ printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
    //    len2 = printf("% 5f\n", a);
    // len += ft_printf("% 020.9f\n", a);
    //    len2 += printf("% 020.9f\n", a);
-   //  len += ft_printf("%% % .9f\n% 020.9f\n%d %%\n", a2, a, i);
+   // len += ft_printf("%% % .9f\n% 020.9f\n%d %%\n", a2, a, i);
    //    len2 += printf("%% % .9f\n% 020.9f\n%d %%\n", a2, a, i);
    // len += ft_printf("% -20.9f\n% 20.9f\n%d\n", a2, a, i);
    //    len2 += printf("% -20.9f\n% 20.9f\n%d\n", a2, a, i);
@@ -310,14 +365,26 @@ printf("\n[%d == %d]: %s\n", len, len2, (len == len2) ? succes :  fail);
    //    len2 += printf("% 20.9f\n", a);
    // len += ft_printf("% -20.9f\n%+20.9f\n%d\n", a2, a, i);
    //    len2 += printf("% -20.9f\n%+20.9f\n%d\n", a2, a, i);
-   // len += ft_printf("% -200.10f %.100f %+20.10f\n", f, f2, a);
-   //    len2 += printf("% -200.10f %.100f %+20.10f\n", f, f2, a);
-   // printf("len %d | len2 %d\n", len, len2);
+
+   // len += ft_printf("%f\n%.100f\n%.20f\n", f, f2, a);
+   //    len2 += printf("%f\n%.100f\n%.20f\n", f, f2, a);
+
+    len += ft_printf("%f\n", f);
+   //  len += ft_printf("%f\n", f);
+   //  len += ft_printf("%f\n", f);
+   //  len += ft_printf("%f\n", f);
+   //  len += ft_printf("%f\n", f);
+   //  len += ft_printf("%f\n", f);
+
+
+      // len += printf("%f %f\n", f, f);
+      // len2 += printf("% -200.10f %.100f\n", f, f2);
+
 
    // len += ft_printf("%f\n", d);
    //    len2 += printf("%f\n", d);
    // ft_printf("%Lf\n", dl);
-      // printf("%Lf\n", dl);
+   //    printf("%Lf\n", dl);
    // len += ft_printf("%.120f\n", f2);
    //    len2 += printf("%.120f\n", f2);
    // len += ft_printf("%.500f\n", d2);

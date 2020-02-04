@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:37:07 by gartanis          #+#    #+#             */
-/*   Updated: 2020/02/02 23:05:15 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/04 04:23:27 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,12 @@ int					*get_mantisa(char *mant, int *len)
 	int			i;
 	long double	*res;
 	int			*bin_dec;
-
+	
 	res = bintoflt_mant(mant, &i);
 	if (!(bin_dec = (int *)malloc(sizeof(int) * (++i * -1) + 2)))
 		return (0);
 	*len = (i * -1) + 2;
+	ft_imemset(bin_dec, 0, *len);
 	bin_dec = flttodec(res, bin_dec, (*len - 2));
 	free(res);
 	return (bin_dec);
