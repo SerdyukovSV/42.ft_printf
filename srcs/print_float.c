@@ -6,39 +6,33 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 15:03:05 by gartanis          #+#    #+#             */
-/*   Updated: 2020/02/04 04:50:08 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/04 21:32:50 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-static char	*rounding_float(char *str, int precis, int *len)
+static char	*rounding_float(char *str, int precis)
 {
-	int		k;
-	char	*s_out;
+	int		len;
 
-	if (!(s_out = (char *)malloc(sizeof(char) * (ft_strlen(str) + precis))))
-		return (0);
-	while (str[++(*len)] != '.')
-		s_out[*len] = str[*len];
-	s_out[(*len)++] = (precis > 0) ? str[*len] : '\0';
-	while (precis > 0 && str[*len])
+	len = ft_strchrpos(str, 46) + 1;
+	while (str[len])
 	{
-		if ((precis--) == 1)
+		if ((precis--) == 1 && str[len] != '.')
 		{
-			s_out[*len] = (str[*len + 1] > '4') ? str[*len] + 1 : str[*len];
-			k = *len;
-			while ((s_out[k] > '9') ? s_out[k--] = '0' : 0)
-				s_out[k] += 1;
+			(str[len + 1] > '4') ? str[len] += 1 : 0;
+			str[len + 1] = '\0';
+			while (str[len] > '9')
+			{
+				str[len--] = '0';
+				str[len] += 1;
+			}
+			break ;
 		}
-		else
-			s_out[(*len)] = str[*len];
-		*len += 1;
+		len++;
 	}
-	while (precis-- > 0)
-		s_out[(*len)++] = '0';
-	s_out[*len] = '\0';
-	return (s_out);
+	return (str);
 }
 
 static char	*printf_f(double args, int len, t_param *param)
@@ -47,7 +41,7 @@ static char	*printf_f(double args, int len, t_param *param)
 	int				*bin_dec;
 	char			*str;
 	char			*tmp;
-	unsigned char	str_mem[len + 1];
+	unsigned char	str_mem[len];
 
 	if (!(str = (char *)malloc(sizeof(char) * 100)))
 		return (0);
@@ -56,7 +50,7 @@ static char	*printf_f(double args, int len, t_param *param)
 	{
 		tmp = get_bin(str_mem[len]);
 		str = ft_strcat(str, tmp);
-		// free(tmp);
+		free(tmp);
 	}
 	(*str == '1') ? param->t_flag.plus = '-' : 0;
 	exp = get_exponent(str + 1, 10, 1023);
@@ -75,7 +69,7 @@ static char	*printf_lf(long double args, int len, t_param *param)
 	int				*bin_dec;
 	char			*str;
 	char			*tmp;
-	unsigned char	str_mem[len + 1];
+	unsigned char	str_mem[len];
 
 	if (!(str = (char *)malloc(sizeof(char) * 100)))
 		return (0);
@@ -84,7 +78,7 @@ static char	*printf_lf(long double args, int len, t_param *param)
 	{
 		tmp = get_bin(str_mem[len]);
 		str = ft_strcat(str, tmp);
-		// free(tmp);
+		free(tmp);
 	}
 	(*str == '1') ? param->t_flag.plus = '-' : 0;
 	exp = get_exponent(str + 1, 14, 16383);
@@ -127,17 +121,14 @@ int			printf_float(va_list args, t_param *pm)
 {
 	int		len;
 	char	*str;
-	char	*tmp;
 
 	(pm->t_flag.dot != DOT) ? pm->precision = 6 : 0;
 	if (pm->modifier & UPP_L)
 		str = printf_lf(va_arg(args, long double), 10, pm);
 	else
 		str = printf_f(va_arg(args, double), 8, pm);
-	len = -1;
-	tmp = rounding_float(str, pm->precision, &len);
-	free(str);
-	str = tmp;
+	str = rounding_float(str, pm->precision);
+	len = ft_strlen(str);
 	if (!pm->t_flag.minus)
 		print_space_float(pm, &len, pm->t_flag.plus, pm->t_flag.space);
 	if (pm->t_flag.minus)

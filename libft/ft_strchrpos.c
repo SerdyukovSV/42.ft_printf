@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrev.c                                        :+:      :+:    :+:   */
+/*   ft_strchrpos.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/28 16:13:32 by gartanis          #+#    #+#             */
-/*   Updated: 2020/02/04 20:57:14 by gartanis         ###   ########.fr       */
+/*   Created: 2020/02/04 18:10:37 by gartanis          #+#    #+#             */
+/*   Updated: 2020/02/04 19:54:19 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrev(char *src)
+int	ft_strchrpos(const char *str, int c)
 {
-	char	*dst;
-	int		i;
-	int		k;
+	int i;
 
 	i = 0;
-	k = 0;
-	while (src[k])
-		k++;
-	if (!(dst = (char *)malloc(sizeof(char) * k + 1)))
-		return (NULL);
-	while (--k >= 0)
-		dst[i++] = src[k];
-	dst[i] = '\0';
-	return (dst);
+	while (str[i] != c)
+		i++;
+	if (str[i] == c)
+		return (i);
+	else
+		return (0);
 }

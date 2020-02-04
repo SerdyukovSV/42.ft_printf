@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrev.c                                        :+:      :+:    :+:   */
+/*   memset.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gartanis <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/28 16:13:32 by gartanis          #+#    #+#             */
-/*   Updated: 2020/02/04 20:57:14 by gartanis         ###   ########.fr       */
+/*   Created: 2019/09/05 14:45:18 by gartanis          #+#    #+#             */
+/*   Updated: 2019/09/23 19:39:41 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrev(char *src)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	char	*dst;
-	int		i;
-	int		k;
+	unsigned char *p;
 
-	i = 0;
-	k = 0;
-	while (src[k])
-		k++;
-	if (!(dst = (char *)malloc(sizeof(char) * k + 1)))
-		return (NULL);
-	while (--k >= 0)
-		dst[i++] = src[k];
-	dst[i] = '\0';
-	return (dst);
+	if (len == 0)
+		return (b);
+	p = (unsigned char *)b;
+	while (len--)
+	{
+		*p = (unsigned char)c;
+		if (len)
+			p++;
+	}
+	return (b);
 }

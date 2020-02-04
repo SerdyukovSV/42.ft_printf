@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:37:07 by gartanis          #+#    #+#             */
-/*   Updated: 2020/02/04 04:23:27 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/04 21:29:07 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,18 @@ static long double	*bintoflt_mant(char *mant, int *len)
 	int			k;
 	long double	*res;
 
-	*len = -1;
-	k = 0;
+	*len = 1;
+	k = -1;
 	if (!(res = (long double *)malloc(sizeof(long double) * 64)))
 		return (0);
-	while (*mant != '\0' && *len >= -64)
+	while (++k < 64)
+		res[k] = 0;
+	k = 0;
+	while (*mant != '\0' && *len <= 64)
 	{
-		res[k] = (*mant - 48) * (ft_power(2, (*len)--));
+		res[k] = (*mant - 48) * (ft_power(2, ((*len) * -1)));
 		k++;
+		*len += 1;
 		mant += 1;
 	}
 	return (res);
@@ -96,12 +100,14 @@ int					*get_mantisa(char *mant, int *len)
 	int			i;
 	long double	*res;
 	int			*bin_dec;
-	
+
 	res = bintoflt_mant(mant, &i);
-	if (!(bin_dec = (int *)malloc(sizeof(int) * (++i * -1) + 2)))
+	*len = (i - 1) + 2;
+	if (!(bin_dec = (int *)malloc(sizeof(int) * (*len))))
 		return (0);
-	*len = (i * -1) + 2;
-	ft_imemset(bin_dec, 0, *len);
+	i = -1;
+	while (++i < *len)
+		bin_dec[i] = 0;
 	bin_dec = flttodec(res, bin_dec, (*len - 2));
 	free(res);
 	return (bin_dec);

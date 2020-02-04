@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 17:09:23 by gartanis          #+#    #+#             */
-/*   Updated: 2020/02/04 04:36:13 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/04 19:15:58 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int			*sort_bigint(int *mant, int *len)
 	{
 		if (mant[i] != 46 && mant[i] > 9 && (i - 1) >= 0)
 		{
-			(mant[i - 1] == 46) ? (mant[i - 2] += mant[i] / 10) :\
-						(mant[i - 1] += mant[i] / 10);
+			(mant[i - 1] == 46) ? (mant[i - 2] += 1) :\
+						(mant[i - 1] += 1);
 			mant[i] = mant[i] % 10;
 		}
 		else if (mant[i] != 46 && mant[i] > 9 && (i - 1) < 0)

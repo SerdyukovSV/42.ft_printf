@@ -6,13 +6,14 @@
 #    By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/12 22:24:34 by gartanis          #+#    #+#              #
-#    Updated: 2020/02/04 04:22:43 by gartanis         ###   ########.fr        #
+#    Updated: 2020/02/04 18:17:52 by gartanis         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	libft.a
 CFLAGS		=	-Wall -Werror -Wextra -I. -c
 FILES		=	ft_strchr.c			\
+				ft_strchrpos.c		\
 				ft_strlen.c			\
 				ft_atoi.c			\
 				ft_isdigit.c		\
@@ -24,6 +25,7 @@ FILES		=	ft_strchr.c			\
 				ft_strdup.c			\
 				ft_memalloc.c		\
 				ft_imemset.c		\
+				ft_memset.c			\
 				ft_memcpy.c			\
 				ft_strcat.c			\
 				ft_dectostr.c		\

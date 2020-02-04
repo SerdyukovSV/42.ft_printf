@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 16:38:52 by gartanis          #+#    #+#             */
-/*   Updated: 2020/02/03 14:43:26 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/04 19:50:26 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ static void	print_space_signed(t_param *pm, int *len, char sign, int zero)
 
 	width = pm->width - (*len + zero + (sign ? 1 : 0));
 	(width < 0) ? width = 0 : 0;
-	((width > 0 || sign) &&  (pm->tmp != 1)) ? pm->t_flag.space = 0 : 0;
+	((width > 0 || sign) && (pm->tmp != 1)) ? pm->t_flag.space = 0 : 0;
 	(pm->t_flag.dot) ? pm->t_flag.zero = 0 : 0;
-	(pm->tmp == 1 && !sign && !(pm->t_flag.dot || pm->t_flag.minus)) ? width -= 1 : 0;
+	(pm->tmp == 1 && !sign && !(pm->t_flag.dot || pm->t_flag.minus)) ? \
+			width -= 1 : 0;
 	*len += width + zero + (sign ? 1 : 0) + (pm->t_flag.space ? 1 : 0);
 	(pm->t_flag.hash == 1 && pm->width) ? width += 1 : 0;
 	if (!pm->t_flag.minus)
