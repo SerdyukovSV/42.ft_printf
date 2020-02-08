@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 17:51:39 by gartanis          #+#    #+#             */
-/*   Updated: 2020/02/03 14:50:42 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/08 18:06:46 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	print_space_octal(t_param *pm, int *len, int zero)
 
 	width = pm->width - (*len + zero);
 	width = (width < 0) ? 0 : width;
+	pm->t_flag.dot ? pm->t_flag.zero = 0 : 0;
 	*len += width + zero;
 	if (!pm->t_flag.minus)
 	{

@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 22:18:34 by gartanis          #+#    #+#             */
-/*   Updated: 2020/02/03 01:30:57 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/08 17:40:40 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	print_space_unsign(t_param *pm, int *len, int zero)
 	int width;
 
 	width = pm->width - (*len + zero);
+	pm->nul ? width += 1 : 0;
 	(width < 0) ? width = 0 : 0;
 	(pm->t_flag.dot) ? pm->t_flag.zero = 0 : 0;
 	*len += width + zero;
@@ -71,9 +72,8 @@ int			print_unsigned(uintmax_t nbr, t_param *pm)
 	int		count;
 	int		zero;
 	char	*str;
-	int		dot;
 
-	dot = ((nbr == 0) && pm->t_flag.dot && !pm->precision) ? 1 : 0;
+	pm->nul = ((nbr == 0) && pm->t_flag.dot && !pm->precision) ? 1 : 0;
 	str = unbr_conversion(nbr, &len);
 	zero = pm->precision > len ? pm->precision - len : 0;
 	if (!pm->t_flag.minus)
@@ -81,10 +81,10 @@ int			print_unsigned(uintmax_t nbr, t_param *pm)
 	count = 0;
 	while (pm->t_flag.minus && count++ < zero)
 		ft_putchar(48);
-	(!dot) ? ft_putstr(str) : 0;
+	(!pm->nul) ? ft_putstr(str) : 0;
 	if (pm->t_flag.minus)
 		print_space_unsign(pm, &len, zero);
-	(dot && !pm->width) ? len = 0 : 0;
+	(pm->nul && !pm->width) ? len = 0 : 0;
 	free(str);
 	return (len);
 }

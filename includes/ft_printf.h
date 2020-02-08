@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 23:04:43 by gartanis          #+#    #+#             */
-/*   Updated: 2020/02/04 04:04:28 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/07 17:34:37 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct			s_param
 	int					width;
 	int					precision;
 	int					tmp;
+	int					nul;
 }						t_param;
 
 # define PRINT_ERROR	-1

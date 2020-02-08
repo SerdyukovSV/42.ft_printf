@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 16:38:52 by gartanis          #+#    #+#             */
-/*   Updated: 2020/02/04 19:50:26 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/08 17:35:04 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,13 @@ static void	print_space_signed(t_param *pm, int *len, char sign, int zero)
 {
 	int width;
 
+	(sign) ? pm->t_flag.space = 0 : 0;
 	width = pm->width - (*len + zero + (sign ? 1 : 0));
+	width -= pm->t_flag.space ? 1 : 0;
 	(width < 0) ? width = 0 : 0;
-	((width > 0 || sign) && (pm->tmp != 1)) ? pm->t_flag.space = 0 : 0;
 	(pm->t_flag.dot) ? pm->t_flag.zero = 0 : 0;
-	(pm->tmp == 1 && !sign && !(pm->t_flag.dot || pm->t_flag.minus)) ? \
-			width -= 1 : 0;
 	*len += width + zero + (sign ? 1 : 0) + (pm->t_flag.space ? 1 : 0);
-	(pm->t_flag.hash == 1 && pm->width) ? width += 1 : 0;
+	(pm->nul == 1 && pm->width) ? width += 1 : 0;
 	if (!pm->t_flag.minus)
 	{
 		while (!pm->t_flag.zero && width-- > 0)
@@ -80,14 +79,11 @@ int			print_signed(intmax_t nbr, t_param *pm)
 	int		zero;
 	int		count;
 	char	*str;
-	int		dot;
 
-	dot = ((nbr == 0) && pm->t_flag.dot && !pm->precision) ? 1 : 0;
+	pm->nul = ((nbr == 0) && pm->t_flag.dot && !pm->precision) ? 1 : 0;
 	str = nbr_conversion(nbr, &len);
 	(nbr < 0) ? pm->t_flag.plus = '-' : 0;
-	(nbr == 0 && pm->width) ? pm->tmp = 1 : 0;
 	zero = (pm->precision > len ? pm->precision - len : 0);
-	dot ? pm->t_flag.hash = 1 : 0;
 	if (!pm->t_flag.minus)
 		print_space_signed(pm, &len, pm->t_flag.plus, zero);
 	count = 0;
@@ -95,10 +91,10 @@ int			print_signed(intmax_t nbr, t_param *pm)
 		ft_putchar(pm->t_flag.plus ? pm->t_flag.plus : ' ');
 	while (pm->t_flag.minus && count++ < zero)
 		ft_putchar(48);
-	(!dot) ? ft_putstr(str) : 0;
+	(!pm->nul) ? ft_putstr(str) : 0;
 	if (pm->t_flag.minus)
 		print_space_signed(pm, &len, pm->t_flag.plus, zero);
-	(dot && !pm->width) ? len = 0 : 0;
+	(pm->nul && !pm->width) ? len = 0 : 0;
 	free(str);
 	return (len);
 }

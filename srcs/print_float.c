@@ -6,30 +6,34 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 15:03:05 by gartanis          #+#    #+#             */
-/*   Updated: 2020/02/04 21:32:50 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/08 21:03:56 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-static char	*rounding_float(char *str, int precis)
+static char	*rounding_float(char *str, int prec)
 {
 	int		len;
 
-	len = ft_strchrpos(str, 46) + 1;
+	len = ft_strchrpos(str, '.') + 1;
 	while (str[len])
 	{
-		if ((precis--) == 1 && str[len] != '.')
+		if ((prec == 1 && str[len] != '.') || (prec == 0))
 		{
-			(str[len + 1] > '4') ? str[len] += 1 : 0;
-			str[len + 1] = '\0';
+			(prec == 0 && str[len] > '4') ? str[len - 2] += 1 : 0;
+			(prec == 0) ? str[len - 1] = '\0' : 0;
+			(prec == 0) ? len -= 2 : 0;
+			(prec == 1 && str[len + 1] > '4') ? str[len] += 1 : 0;
+			(prec == 1) ? str[len + 1] = '\0' : 0;
 			while (str[len] > '9')
 			{
 				str[len--] = '0';
-				str[len] += 1;
+				(str[len] != '.') ? (str[len] += 1) : (str[--len] += 1);
 			}
 			break ;
 		}
+		prec--;
 		len++;
 	}
 	return (str);
@@ -95,9 +99,12 @@ static void	print_space_float(t_param *pm, int *len, char sign, char space)
 {
 	int width;
 
-	width = pm->width - (*len + (sign ? 1 : 0)) - \
-		(pm->t_flag.zero && space ? 1 : 0);
+	(sign) ? space = 0 : 0;
+	(pm->t_flag.hash && !pm->precision) ? pm->width -= 1 : 0;
+	width = pm->width - (*len + (sign ? 1 : 0));
 	width = (width < 0) ? 0 : width;
+	(width && !pm->t_flag.zero && !pm->t_flag.minus) ? space = 0 : 0;
+	(width && space) ? width -= 1 : 0;
 	((width > 0 && !pm->t_flag.zero) || sign) ? space = 0 : 0;
 	*len += width + (space ? 1 : 0) + (sign ? 1 : 0);
 	if (!pm->t_flag.minus)
@@ -110,11 +117,8 @@ static void	print_space_float(t_param *pm, int *len, char sign, char space)
 			ft_putchar(48);
 	}
 	else if (pm->t_flag.minus)
-	{
-		(pm->t_flag.space) ? (width -= 1) : 0;
 		while (width-- > 0)
 			ft_putchar(32);
-	}
 }
 
 int			printf_float(va_list args, t_param *pm)
@@ -131,9 +135,10 @@ int			printf_float(va_list args, t_param *pm)
 	len = ft_strlen(str);
 	if (!pm->t_flag.minus)
 		print_space_float(pm, &len, pm->t_flag.plus, pm->t_flag.space);
-	if (pm->t_flag.minus)
+	if (pm->t_flag.minus && (pm->t_flag.plus || pm->t_flag.space))
 		ft_putchar(pm->t_flag.plus ? pm->t_flag.plus : pm->t_flag.space);
 	ft_putstr(str);
+	(pm->t_flag.hash && !pm->precision) ? ft_putchar('.') : 0;
 	if (pm->t_flag.minus)
 		print_space_float(pm, &len, pm->t_flag.plus, pm->t_flag.space);
 	free(str);
