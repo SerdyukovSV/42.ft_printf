@@ -6,7 +6,7 @@
 #    By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/12 22:24:34 by gartanis          #+#    #+#              #
-#    Updated: 2020/02/04 18:17:52 by gartanis         ###   ########.fr        #
+#    Updated: 2020/02/09 16:17:08 by gartanis         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ FILES		=	ft_strchr.c			\
 				ft_putstr.c			\
 				ft_strcpy.c			\
 				ft_strncpy.c		\
+				ft_strcmp.c			\
 				ft_strdup.c			\
 				ft_memalloc.c		\
 				ft_imemset.c		\

@@ -6,12 +6,13 @@
 #    By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/31 01:20:51 by gartanis          #+#    #+#              #
-#    Updated: 2020/01/31 01:22:57 by gartanis         ###   ########.fr        #
+#    Updated: 2020/02/09 16:04:16 by gartanis         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		=		libftprintf.a
 CC			= 		gcc
+HEADER		=		includes/ft_printf.h
 CFLAGS 		= 		-I includes/ -Wall -Werror -Wextra
 OBJ 		= 		$(SRC:.c=.o)
 
@@ -42,7 +43,7 @@ all: $(NAME)
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@printf "[ft_printf] Compiling [:.]\r"
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(HEADER)
 	@make -C libft/
 	@cp libft/libft.a ./$(NAME)
 	@ar rc $@ $^
@@ -60,3 +61,5 @@ fclean: clean
 	@echo "Cleaning" [ $(NAME) ] "..." $(OK)
 
 re: fclean all
+
+.PHONY: all clean fclean re

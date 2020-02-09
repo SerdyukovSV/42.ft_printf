@@ -6,7 +6,7 @@
 /*   By: gartanis <gartanis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 20:47:18 by gartanis          #+#    #+#             */
-/*   Updated: 2020/02/07 17:22:21 by gartanis         ###   ########.fr       */
+/*   Updated: 2020/02/09 16:19:20 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	print_string(t_param *pm, va_list args)
 		print_space(pm->width - len, pm->t_flag.zero ? '0' : ' ');
 	if (!(pm->precision == 0 && pm->t_flag.dot == DOT))
 		ft_putstr(str);
-	if (pm->precision != 0)
+	if (pm->precision != 0 || !ft_strcmp(str, "(null)"))
 		free(str);
 	if (pm->width && (pm->t_flag.minus == MINUS))
 		print_space(pm->width - len, SPACE);
